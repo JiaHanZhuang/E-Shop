@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+    <!-- 加载配置文件中的内容 -->
+    <context:property-placeholder location="classpath:config/dbcpconfig.properties"/>
+    <!-- 配置数据源 -->
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+         destroy-method="close">
+         <property name="driverClassName" value="${jdbc.driverClassName}"/>
+         <property name="url" value="${jdbc.url}"/>
+         <property name="username" value="${jdbc.username}"/>
+         <property name="password" value="${jdbc.password}"/>
+         <property name="maxActive" value="${maxActive}"/>
+    </bean>
+    <!-- sqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 数据库连接池 -->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 加载mybatis的全局配置文件 -->
+        <property name="configLocation" value="classpath:config/mybatis/sqlMapConfig.xml"/>
+        <property name="mapperLocations" value="classpath:com/zjh/e/mapper/mysql/*.xml"/>
+    </bean>
+
+
+
+    <!-- mapper扫描器,通用mapper和spring整合使用-->
+    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 扫描包路径 -->
+        <property name="basePackage" value="com.zjh.e.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+    </bean>
+
+</beans>

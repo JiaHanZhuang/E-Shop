@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context.xsd
+	   http://www.springframework.org/schema/mvc
+	   http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	<!-- 配置扫描器@Controller -->
+	<context:component-scan base-package="com.zjh.e.controller"></context:component-scan>
+
+	<mvc:resources location="resources/JQuery/" mapping="resources/JQuery/**" />
+	<mvc:resources location="WEB-INF/img/" mapping="/img/**" />
+	<mvc:resources location="resources/manager-shop/css/" mapping="resources/manager-shop/css/**" />
+	<mvc:resources location="resources/manager-shop/font-awesome/fonts/" mapping="resources/manager-shop/font-awesome/fonts/**"/>
+	<mvc:resources location="resources/manager-shop/fonts/" mapping="resources/manager-shop/fonts/**"/>
+	<mvc:resources location="resources/manager-shop/img/" mapping="resources/manager-shop/img/**"/>
+	<mvc:resources mapping="resources/manager-shop/js/**" location="resources/manager-shop/js/"/>
+	<mvc:resources location="resources/login/css/" mapping="resources/login/css/**"/>
+	<mvc:resources mapping="resources/login/fonts/**" location="resources/login/fonts/"/>
+
+	<mvc:resources mapping="resources/login/js/**" location="resources/login/js/"/>
+	<mvc:resources mapping="resources/login/plugins/iCheck/css/**" location="resources/login/plugins/iCheck/css/"/>
+	<mvc:resources mapping="resources/login/plugins/iCheck/js/**" location="resources/login/plugins/iCheck/js/"/>
+
+
+
+	<mvc:annotation-driven></mvc:annotation-driven>
+
+	<!-- 视图解析器 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 配置jsp路径的前缀 -->
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<!-- 配置jsp路径的后缀 -->
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<bean id="multipartResolver"
+			class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 设置文件上传的大小为5M -->
+		<property name="maxUploadSize">
+			<value>5242880</value>
+		</property>
+	</bean>
+
+</beans>
