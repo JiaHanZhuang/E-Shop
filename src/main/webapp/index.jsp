@@ -2,7 +2,7 @@
 <%@ page isELIgnored="false" %>
 <html>
 <title>安装页面</title>
-<script src="${pageContext.request.contextPath}/resources/JQuery/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/resources/JQuery/jquery-3.2.1.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(function(){
         $("#install").click(function(){

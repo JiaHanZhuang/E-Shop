@@ -20,7 +20,6 @@
     <link href="${pageContext.request.contextPath}/resources/manager-shop/css/custom.css" rel="stylesheet" />
     <!-- GOOGLE FONTS-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-
     <script type="text/javascript">
         function install() {
             var url = "${pageContext.request.contextPath}/install/action";
@@ -30,26 +29,6 @@
             });
         }
 
-        function showLoginForm(){
-            $('#loginModal1 .registerBox').fadeOut('fast',function(){
-                $('.loginBox').fadeIn('fast');
-                $('.register-footer').fadeOut('fast',function(){
-                    $('.login-footer').fadeIn('fast');
-                });
-
-                $('.modal-title').html('Login with');
-            });
-            $('.error').removeClass('alert alert-danger').html('');
-        }
-
-        function openLoginModal(){
-            showLoginForm();
-            setTimeout(function(){
-                $('#loginModal1').modal('show');
-            }, 230);
-
-        }
-
         function checkAjax (loginform1) {
             if(loginform1.password.value==""){       //验证密码是否为空
                 alert("请输入密码！");
@@ -57,32 +36,28 @@
                 return false;
             }
             var password = loginform1.password.value;
-            var old_password = ${manager.password};
+            var old_password =${manager.password};
             if(password == old_password) {
                 openLoginModal1();
             } else {
                 alert("输入错误,请重新输入");
             }
         }
-        function showLoginForm1(){
-            $('#loginModal2 .registerBox').fadeOut('fast',function(){
-                $('.loginBox').fadeIn('fast');
-                $('.register-footer').fadeOut('fast',function(){
-                    $('.login-footer').fadeIn('fast');
-                });
 
-                $('.modal-title').html('Login with');
-            });
-            $('.error').removeClass('alert alert-danger').html('');
+        function uploadingAjax(){
+            var formData = new formData($("#uploading")[0]);
+            var url = "${pageContext.request.contextPath}/manager/uploading";
+            $.post(url,{
+                data:formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+            },function (data) {
+                alert(data.message);
+            },"JSON");
         }
 
-        function openLoginModal1(){
-            showLoginForm1();
-            setTimeout(function(){
-                $('#loginModal2').modal('show');
-            }, 230);
-
-        }
     </script>
 </head>
 <body>
@@ -99,7 +74,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#" href="javascript:void(0)" onclick="openLoginModal();">修改密码</a></li>
+                    <li><a href="#" href="javascript:void(0)" onclick="openLoginModal()">修改密码</a></li>
                     <li><a href="${pageContext.request.contextPath}/loginManager/logoutManager">退出登录</a></li>
                 </ul>
             </div>
@@ -120,7 +95,7 @@
                     <a href="#"><i class="fa fa-table"></i>公司财政<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#">导入公司财政</a>
+                            <a href="#" onclick="IntoExcel()">导入公司财政</a>
                         </li>
                         <li>
                             <a href="#">导出公司财政</a>
@@ -244,32 +219,7 @@
     </div>
 </div>
 
-
-
-<div class="modal fade login" id="loginModal1">
-    <div class="modal-dialog login animated">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">请输入原密码</h4>
-            </div>
-            <div class="modal-body">
-                <div class="box">
-                    <div class="content">
-                        <div class="error"></div>
-                        <div class="form loginBox">
-                            <form method="post" id="loginform1" name="loginform" action="#" accept-charset="UTF-8">
-                                <input  class="form-control" type="password" placeholder="密码" name="password">
-                                <input class="btn btn-default btn-login" type="button" value="验证" onclick="checkAjax(this.form)">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+<jsp:include page="manager-index-transcript.jsp"></jsp:include>
 
 <div class="modal fade login" id="loginModal2">
     <div class="modal-dialog login animated">
@@ -301,7 +251,7 @@
 <!-- /. WRAPPER  -->
 <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
 <!-- JQUERY SCRIPTS -->
-<script src="${pageContext.request.contextPath}/resources/JQuery/jquery-1.10.2.js"></script>
+<script src="${pageContext.request.contextPath}/resources/JQuery/jquery-3.2.1.js"></script>
 <!-- BOOTSTRAP SCRIPTS -->
 <script src="${pageContext.request.contextPath}/resources/manager-shop/js/bootstrap.min.js"></script>
 <!-- METISMENU SCRIPTS -->
@@ -309,6 +259,6 @@
 <!-- CUSTOM SCRIPTS -->
 <script src="${pageContext.request.contextPath}/resources/manager-shop/js/custom.js"></script>
 
-
+<script src="${pageContext.request.contextPath}/resources/manager-shop/js/manager.js" type="text/javascript"></script>
 </body>
 </html>

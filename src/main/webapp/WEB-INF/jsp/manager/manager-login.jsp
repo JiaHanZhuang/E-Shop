@@ -20,10 +20,9 @@
     <link href="${pageContext.request.contextPath}/resources/login/css/login-register.css" rel="stylesheet" />
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
 
-    <script src="${pageContext.request.contextPath}/resources/JQuery/jquery-1.10.2.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/resources/JQuery/jquery-3.2.1.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/resources/login/js/bootstrap.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/resources/login/js/login-register.js" type="text/javascript"></script>
-
     <script type="text/javascript">
         function loginAjax(loginform) {
             if(loginform.username.value==""){       //验证用户名是否为空
@@ -54,8 +53,8 @@
                 }
             },"JSON");
         }
-    </script>
 
+    </script>
 </head>
 <body>
 <div class="container">

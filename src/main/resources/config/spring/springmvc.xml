@@ -25,7 +25,7 @@
 	<mvc:resources mapping="resources/login/js/**" location="resources/login/js/"/>
 	<mvc:resources mapping="resources/login/plugins/iCheck/css/**" location="resources/login/plugins/iCheck/css/"/>
 	<mvc:resources mapping="resources/login/plugins/iCheck/js/**" location="resources/login/plugins/iCheck/js/"/>
-
+	<mvc:resources mapping="/excel/**" location="WEB-INF/excel/"/>
 
 
 	<mvc:annotation-driven></mvc:annotation-driven>
