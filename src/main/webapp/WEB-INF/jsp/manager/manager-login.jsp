@@ -38,7 +38,7 @@
             }
             var username = loginform.username.value;
             var password = loginform.password.value;
-            var url = "${pageContext.request.contextPath}/login/logincheckManager";
+            var url = "${pageContext.request.contextPath}/loginManager/logincheckManager";
             $.post(url,{
                 name:username,
                 password:password

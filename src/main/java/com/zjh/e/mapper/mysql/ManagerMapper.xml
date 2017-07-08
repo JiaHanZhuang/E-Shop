@@ -6,4 +6,9 @@
     <select id="login" parameterType="com.zjh.e.pojo.Manager" resultType="com.zjh.e.pojo.Manager">
         SELECT * FROM manager WHERE name = #{name} AND password = #{password}
     </select>
+
+    <update id="updatePassword" parameterType="com.zjh.e.pojo.Manager">
+        UPDATE manager SET  password  = #{password} WHERE  id = #{id}
+    </update>
+
 </mapper>

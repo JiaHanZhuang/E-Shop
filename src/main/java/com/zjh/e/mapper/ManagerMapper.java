@@ -11,4 +11,6 @@ public interface ManagerMapper extends Mapper<Manager> {
 
     Manager login(Manager manager);
 
+    void updatePassword(Manager manager);
+
 }

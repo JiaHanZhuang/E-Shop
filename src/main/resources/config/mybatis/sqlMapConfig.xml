@@ -7,10 +7,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     <!-- 全局setting配置，根据需要添加 -->
     <!-- 前后顺序不可颠倒 -->
     <!-- 配置别名 -->
-    <typeAliases>
-        <!-- 批量扫描别名 -->
-        <package name="com.zjh.e.pojo"/>
-    </typeAliases>
+    <!--<typeAliases>-->
+        <!--&lt;!&ndash; 批量扫描别名 &ndash;&gt;-->
+        <!--<package name="com.zjh.e.pojo"/>-->
+    <!--</typeAliases>-->
 
     <!-- 配置分页插件 -->
     <plugins>

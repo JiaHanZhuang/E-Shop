@@ -17,6 +17,6 @@
 <body>
 <h2>Hello World!</h2>
 <input type="button" id="install" value="安装">
-<a href="${pageContext.request.contextPath}/login/skip">跳转</a>
+<a href="${pageContext.request.contextPath}/loginManager/skip">跳转</a>
 </body>
 </html>

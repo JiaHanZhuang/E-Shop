@@ -1,7 +1,7 @@
 package com.zjh.e.controller;
 
 import com.zjh.e.pojo.Manager;
-import com.zjh.e.service.LoginMangerService;
+import com.zjh.e.service.LoginManagerService;
 import com.zjh.e.utils.MessageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,11 +14,11 @@ import javax.servlet.http.HttpSession;
  * Created by Administrator on 2017/7/7.
  */
 @Controller
-@RequestMapping("/login")
-public class LoginRegisterController {
+@RequestMapping("/loginManager")
+public class LoginManagerController {
 
     @Autowired
-    private LoginMangerService loginMangerService;
+    private LoginManagerService loginMangerService;
 
 
     @RequestMapping("/skip")
@@ -32,7 +32,7 @@ public class LoginRegisterController {
         Manager m = loginMangerService.login(manager);
         session.setAttribute("manager",m);
         if (m!=null) {
-            return new MessageUtils("login/managerIndex","成功");
+            return new MessageUtils("loginManager/managerIndex","成功");
         } else {
             session.removeAttribute("manager");
             return new MessageUtils(null,null);
@@ -41,6 +41,18 @@ public class LoginRegisterController {
     @RequestMapping("/managerIndex")
     public String managerIndex() {
         return "manager/manager-index";
+    }
+
+    @RequestMapping("/logoutManager")
+    public String logout(HttpSession session) {
+        session.removeAttribute("manager");
+        return "manager/manager-login";
+    }
+
+    @RequestMapping("/changePassword")
+    public String changePassword (Manager manager) {
+        loginMangerService.updatePassword(manager);
+        return "manager/manager-login";
     }
 
 }

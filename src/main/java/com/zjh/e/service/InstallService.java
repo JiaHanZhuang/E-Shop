@@ -1,12 +1,9 @@
 package com.zjh.e.service;
 
 import com.zjh.e.pojo.CommodityType;
-import org.springframework.stereotype.Service;
 
 /**
- * Created by Administrator on 2017/7/6.
+ * Created by Administrator on 2017/7/8.
  */
-@Service
-public class InstallService extends BaseService<CommodityType> {
-
+public interface InstallService extends BaseService<CommodityType> {
 }

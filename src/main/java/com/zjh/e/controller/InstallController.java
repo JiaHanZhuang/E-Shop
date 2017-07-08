@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Created by Administrator on 2017/7/6.
  */
 @Controller
+@RequestMapping("/install")
 public class InstallController {
 
     @Autowired
     private InstallService installService;
 
-    @RequestMapping("/install")
+    @RequestMapping("/action")
     @ResponseBody
     public MessageUtils install() throws Exception {
         try{

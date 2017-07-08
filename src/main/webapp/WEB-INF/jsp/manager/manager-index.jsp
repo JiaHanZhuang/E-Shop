@@ -22,15 +22,67 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 
     <script type="text/javascript">
-        $(function(){
-            $("#install").click(function(){
-                var url = "${pageContext.request.contextPath}/install";
-                var args = {"time": new Date()}
-                $.getJSON(url,args,function(data){
-                    alert(data.message);
-                });
+        function install() {
+            var url = "${pageContext.request.contextPath}/install/action";
+            var args = {"time": new Date()}
+            $.getJSON(url,args,function(data){
+                alert(data.message);
             });
-        })
+        }
+
+        function showLoginForm(){
+            $('#loginModal1 .registerBox').fadeOut('fast',function(){
+                $('.loginBox').fadeIn('fast');
+                $('.register-footer').fadeOut('fast',function(){
+                    $('.login-footer').fadeIn('fast');
+                });
+
+                $('.modal-title').html('Login with');
+            });
+            $('.error').removeClass('alert alert-danger').html('');
+        }
+
+        function openLoginModal(){
+            showLoginForm();
+            setTimeout(function(){
+                $('#loginModal1').modal('show');
+            }, 230);
+
+        }
+
+        function checkAjax (loginform1) {
+            if(loginform1.password.value==""){       //验证密码是否为空
+                alert("请输入密码！");
+                loginform1.password.focus();
+                return false;
+            }
+            var password = loginform1.password.value;
+            var old_password = ${manager.password};
+            if(password == old_password) {
+                openLoginModal1();
+            } else {
+                alert("输入错误,请重新输入");
+            }
+        }
+        function showLoginForm1(){
+            $('#loginModal2 .registerBox').fadeOut('fast',function(){
+                $('.loginBox').fadeIn('fast');
+                $('.register-footer').fadeOut('fast',function(){
+                    $('.login-footer').fadeIn('fast');
+                });
+
+                $('.modal-title').html('Login with');
+            });
+            $('.error').removeClass('alert alert-danger').html('');
+        }
+
+        function openLoginModal1(){
+            showLoginForm1();
+            setTimeout(function(){
+                $('#loginModal2').modal('show');
+            }, 230);
+
+        }
     </script>
 </head>
 <body>
@@ -47,8 +99,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">修改密码</a></li>
-                    <li><a href="#">退出登录</a></li>
+                    <li><a href="#" href="javascript:void(0)" onclick="openLoginModal();">修改密码</a></li>
+                    <li><a href="${pageContext.request.contextPath}/loginManager/logoutManager">退出登录</a></li>
                 </ul>
             </div>
 
@@ -62,7 +114,7 @@
                     <img src="${pageContext.request.contextPath}/resources/manager-shop/img/find_user.png" class="img-responsive" />
                 </li>
                 <li>
-                    <a href="${pageContext.request.contextPath}/login/managerIndex"><i class="fa fa-desktop "></i>首页</a>
+                    <a href="${pageContext.request.contextPath}/loginManager/managerIndex"><i class="fa fa-desktop "></i>首页</a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-table"></i>公司财政<span class="fa arrow"></span></a>
@@ -183,16 +235,69 @@
                 </div>
                 <div class="col-md-4">
                     <label>安装系统</label>
-                    <a id="install" target="_blank" class="btn btn-danger btn-lg btn-block">安装</a>
+                    <input type="button" class="btn btn-danger btn-lg btn-block" value="安装" onclick="install()">
+                    <%--<button class="btn btn-danger btn-lg btn-block" id="install">安装</button>--%>
+                    <%--<a target="_blank"  onclick="install()">安装</a>--%>
                 </div>
             </div>
-            <div class="row">
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade login" id="loginModal1">
+    <div class="modal-dialog login animated">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">请输入原密码</h4>
+            </div>
+            <div class="modal-body">
+                <div class="box">
+                    <div class="content">
+                        <div class="error"></div>
+                        <div class="form loginBox">
+                            <form method="post" id="loginform1" name="loginform" action="#" accept-charset="UTF-8">
+                                <input  class="form-control" type="password" placeholder="密码" name="password">
+                                <input class="btn btn-default btn-login" type="button" value="验证" onclick="checkAjax(this.form)">
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <!-- /. PAGE INNER  -->
     </div>
-    <!-- /. PAGE WRAPPER  -->
 </div>
+
+
+<div class="modal fade login" id="loginModal2">
+    <div class="modal-dialog login animated">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">请输入新密码</h4>
+            </div>
+            <div class="modal-body">
+                <div class="box">
+                    <div class="content">
+                        <div class="error"></div>
+                        <div class="form loginBox">
+                            <form method="post" id="loginform2" accept-charset="UTF-8"
+                                  action="${pageContext.request.contextPath}/loginManager/changePassword" >
+                                <input type="hidden" value="${manager.id}" name="id">
+                                <input  class="form-control" type="password" placeholder="密码" name="password">
+                                <input class="btn btn-default btn-login" type="submit" value="修改">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- /. WRAPPER  -->
 <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
 <!-- JQUERY SCRIPTS -->
