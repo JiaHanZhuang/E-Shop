@@ -6,7 +6,7 @@
 <script type="text/javascript">
     $(function(){
         $("#install").click(function(){
-            var url = "${pageContext.request.contextPath}/install.action";
+            var url = "${pageContext.request.contextPath}/install";
             var args = {"time": new Date()}
             $.getJSON(url,args,function(data){
                 alert(data.message);

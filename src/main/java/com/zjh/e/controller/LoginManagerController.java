@@ -32,7 +32,7 @@ public class LoginManagerController {
         Manager m = loginMangerService.login(manager);
         session.setAttribute("manager",m);
         if (m!=null) {
-            return new MessageUtils("loginManager/managerIndex","成功");
+            return new MessageUtils("loginManager/managerIndex.action","成功");
         } else {
             session.removeAttribute("manager");
             return new MessageUtils(null,null);

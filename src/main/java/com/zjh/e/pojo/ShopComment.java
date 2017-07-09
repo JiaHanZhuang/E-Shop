@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2017/7/7.
+ * 商家与评论关联类
  */
 public class ShopComment {
 

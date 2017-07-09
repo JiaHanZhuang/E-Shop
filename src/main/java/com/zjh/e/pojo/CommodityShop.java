@@ -2,6 +2,7 @@ package com.zjh.e.pojo;
 
 /**
  * Created by Administrator on 2017/7/7.
+ * 商品商家关联类
  */
 public class CommodityShop {
 

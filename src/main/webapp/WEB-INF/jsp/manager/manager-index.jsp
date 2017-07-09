@@ -95,10 +95,7 @@
                     <a href="#"><i class="fa fa-table"></i>公司财政<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#" onclick="IntoExcel()">导入公司财政</a>
-                        </li>
-                        <li>
-                            <a href="#">导出公司财政</a>
+                            <a href="${pageContext.request.contextPath}/managerModel/financialList">公司财政</a>
                         </li>
                     </ul>
                 </li>
@@ -107,9 +104,6 @@
                     <ul class="nav nav-second-level">
                         <li>
                             <a href="#">商家</a>
-                        </li>
-                        <li>
-                            <a href="#">公司财政</a>
                         </li>
                         <li>
                             <a href="#">活动<span class="fa arrow"></span></a>

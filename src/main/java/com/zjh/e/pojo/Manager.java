@@ -2,6 +2,7 @@ package com.zjh.e.pojo;
 
 /**
  * Created by Administrator on 2017/7/7.
+ * 管理员类
  */
 public class Manager {
 
@@ -42,12 +43,4 @@ public class Manager {
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return "Manager{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
 }

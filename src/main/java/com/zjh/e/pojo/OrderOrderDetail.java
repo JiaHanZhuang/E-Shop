@@ -2,6 +2,7 @@ package com.zjh.e.pojo;
 
 /**
  * Created by Administrator on 2017/7/7.
+ * 订单与明细关联类
  */
 public class OrderOrderDetail {
 
