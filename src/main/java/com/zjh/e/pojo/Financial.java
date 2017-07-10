@@ -1,5 +1,6 @@
 package com.zjh.e.pojo;
 
+import javax.persistence.Id;
 import java.util.Date;
 
 /**
@@ -8,6 +9,7 @@ import java.util.Date;
  */
 public class Financial {
 
+    @Id
     private Long id;        //主键
     private int expend;     //支出
     private int earning;    //收入

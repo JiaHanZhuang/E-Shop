@@ -1,11 +1,14 @@
 package com.zjh.e.pojo;
 
+import javax.persistence.Id;
+
 /**
  * Created by Administrator on 2017/7/7.
  * 商品类
  */
 public class Commodity {
 
+    @Id
     private Long id;        //商品id
     private String color;       //商品颜色
     private String type;        //商品类型

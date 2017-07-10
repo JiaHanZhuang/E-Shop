@@ -1,12 +1,16 @@
 package com.zjh.e.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.zjh.e.pojo.Activity;
 import com.zjh.e.pojo.Financial;
+import com.zjh.e.service.ActivityService;
 import com.zjh.e.service.FinancialService;
+import com.zjh.e.utils.MessageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,6 +26,8 @@ public class ManagerController {
 
     @Autowired
     private FinancialService financialService;
+    @Autowired
+    private ActivityService activityService;
 
     /**
      * 导入
@@ -69,5 +75,27 @@ public class ManagerController {
         return modelAndView;
     }
 
+    @RequestMapping("/Activity")
+    public String insertActionActivity(){
+        return "manager/manager-InsertActivity";
+    }
+
+    @RequestMapping("/insertActivity")
+    @ResponseBody
+    public MessageUtils insertActivity(Activity activity) {
+        activity.setDeadline(false);    //设置活动为未过期
+        activityService.save(activity);
+        return new MessageUtils("managerModel/selectActivity",null);
+    }
+
+    @RequestMapping("/selectActivity")
+    public ModelAndView selectActivity(ModelAndView modelAndView,
+                            @RequestParam(required=false,defaultValue="1")Integer page,
+                            @RequestParam(required=false,defaultValue="5") Integer pageSize) {
+        PageInfo<Activity> activities = activityService.queryListByWhere(null,page,pageSize);
+        modelAndView.addObject("activities",activities);
+        modelAndView.setViewName("manager/manager-activity");
+        return modelAndView;
+    }
 
 }

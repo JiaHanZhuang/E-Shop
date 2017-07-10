@@ -1,5 +1,7 @@
 package com.zjh.e.pojo;
 
+import javax.persistence.Id;
+
 /**
  * Created by Administrator on 2017/7/7.
  * 订单类
@@ -8,6 +10,7 @@ public class Order {
 
     private Long userId;    //用户id
     private Long orderDetailId;       //订单明细id
+    @Id
     private Long id;            //订单id
 
     public Order() {

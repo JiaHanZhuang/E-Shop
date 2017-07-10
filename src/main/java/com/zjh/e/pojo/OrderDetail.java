@@ -1,5 +1,6 @@
 package com.zjh.e.pojo;
 
+import javax.persistence.Id;
 import java.util.Date;
 
 /**
@@ -8,6 +9,7 @@ import java.util.Date;
  */
 public class OrderDetail {
 
+    @Id
     private Long id;        //索引
     private Date buyTime;       //购买时间
     private String buyNumber;      //订单号

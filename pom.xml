@@ -329,6 +329,13 @@
       <version>3.15</version>
     </dependency>
     <!--end-->
+    <!-- 百度富文本使用 -->
+    <dependency>
+      <groupId>cn.songxinqiang</groupId>
+      <artifactId>com.baidu.ueditor</artifactId>
+      <version>1.1.2-edit-1.0</version>
+    </dependency>
+    <!--end-->
 
   </dependencies>
   <build>

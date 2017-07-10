@@ -1,11 +1,14 @@
 package com.zjh.e.pojo;
 
+import javax.persistence.Id;
+
 /**
  * Created by Administrator on 2017/7/7.
  * 评论/回复类
  */
 public class Comment {
 
+    @Id
     private Long id;        //索引
     private Long userId;    //用户id
     private Long CommentId;     //自关联

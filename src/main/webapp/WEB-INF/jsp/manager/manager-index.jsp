@@ -95,10 +95,10 @@
                             <a href="#">活动<span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level">
                                 <li>
-                                    <a href="#">发布活动</a>
+                                    <a href="${pageContext.request.contextPath}/managerModel/Activity">发布活动</a>
                                 </li>
                                 <li>
-                                    <a href="#">查看活动</a>
+                                    <a href="${pageContext.request.contextPath}/managerModel/selectActivity">查看活动</a>
                                 </li>
                             </ul>
 

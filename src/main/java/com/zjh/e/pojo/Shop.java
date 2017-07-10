@@ -1,11 +1,14 @@
 package com.zjh.e.pojo;
 
+import javax.persistence.Id;
+
 /**
  * Created by Administrator on 2017/7/7.
  * 商家类
  */
 public class Shop {
 
+    @Id
     private Long id;        //店家id
     private Long userId;        //用户id
     private String shopName;        //商家名称
