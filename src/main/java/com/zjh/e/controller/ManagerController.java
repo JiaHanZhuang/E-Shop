@@ -5,12 +5,13 @@ import com.zjh.e.pojo.Financial;
 import com.zjh.e.service.FinancialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by Administrator on 2017/7/8.
@@ -22,24 +23,41 @@ public class ManagerController {
     @Autowired
     private FinancialService financialService;
 
-//    @RequestMapping("/uploading")
-//    @ResponseBody
-//    public MessageUtils uploadingExcel(MultipartFile excel) throws Exception{
-//        //接收文件名
-//        String originalFilename =  excel.getOriginalFilename();
-//        //判断图片是否为空，或者图片名为空
-//        if (excel!=null && originalFilename!=null && originalFilename.length() > 0) {
-//            //文件存储路径
-//            String excel_path = "D:\\IdeaProject\\E-shop\\src\\main\\webapp\\WEB-INF\\excel\\";
-//            //生成文件名
-//            String newFilename = UUID.randomUUID()+originalFilename.substring(originalFilename.indexOf("."));
-//            //生成文件
-//            File file = new File(excel_path+newFilename);
-//            //将文件写进磁盘
-//            excel.transferTo(file);
-//        }
-//        return null;
-//    }
+    /**
+     * 导入
+      * @param excel       excel文件
+     */
+    @RequestMapping("/uploading")
+    public String uploadingExcel(MultipartFile excel){
+        //接收文件名
+        String originalFilename =  excel.getOriginalFilename();
+        //判断文件是否为空
+        if (excel!=null && originalFilename!=null && originalFilename.length() > 0){
+            //判断是否为excel文件
+            if(originalFilename.matches("^.+\\.(?i)((xls)|(xlsx))$")) {
+                financialService.importExcel(excel);
+            }
+        }
+        return "redirect:/managerModel/financialList";
+    }
+
+    /**
+     * 导出
+     * @param response
+     * @throws Exception
+     */
+    @RequestMapping("/download")
+    public void exportExcel(HttpServletResponse response) throws Exception {
+        response.setContentType("application/x-excel");
+        response.setHeader("Content-Disposition", "attachment;filename="
+                + new String("财务情况.xls".getBytes(), "ISO-8859-1"));
+        ServletOutputStream outputStream = response.getOutputStream();
+        financialService.exportExcel(outputStream);
+        if (outputStream!=null) {
+            outputStream.close();
+        }
+    }
+
 
     @RequestMapping("/financialList")
     public ModelAndView financialList(ModelAndView modelAndView ,

@@ -22,6 +22,15 @@
     <link href="${pageContext.request.contextPath}/resources/manager-shop/css/custom.css" rel="stylesheet" />
     <!-- GOOGLE FONTS-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+
+    <script type="text/javascript">
+        //导出
+        function doExportExcel(){
+            window.open("${pageContext.request.contextPath}/managerModel/download");
+        }
+
+    </script>
+
 </head>
 <body>
 
@@ -112,12 +121,15 @@
                         <div class="col-md-4">
                             <a href="#" class="btn btn-primary" onclick="doExportExcel()">导出</a>
                         </div>
-                        <div class="col-md-4">
-                            <input name="userExcel" type="file" />
-                        </div>
-                        <div class="col-md-4">
-                            <a href="#" class="btn btn-primary" onclick="doImportExcel()">导入</a>
-                        </div>
+                        <form  enctype="multipart/form-data" method="post"
+                                    action="${pageContext.request.contextPath}/managerModel/uploading">
+                            <div class="col-md-4">
+                                <input name="excel" type="file" />
+                            </div>
+                            <div class="col-md-4">
+                                <input type="submit"  value="导入">
+                            </div>
+                        </form>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover">

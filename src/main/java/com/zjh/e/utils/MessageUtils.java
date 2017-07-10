@@ -2,6 +2,7 @@ package com.zjh.e.utils;
 
 /**
  * Created by Administrator on 2017/7/6.
+ * 用于JSON数据交互工具类
  */
 public class MessageUtils {
 

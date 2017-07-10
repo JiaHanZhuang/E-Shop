@@ -44,20 +44,6 @@
             }
         }
 
-        function uploadingAjax(){
-            var formData = new formData($("#uploading")[0]);
-            var url = "${pageContext.request.contextPath}/manager/uploading";
-            $.post(url,{
-                data:formData,
-                async: false,
-                cache: false,
-                contentType: false,
-                processData: false,
-            },function (data) {
-                alert(data.message);
-            },"JSON");
-        }
-
     </script>
 </head>
 <body>
