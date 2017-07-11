@@ -99,7 +99,7 @@ public class ManagerController {
         return modelAndView;
     }
 
-    @RequestMapping("creatQRCode")
+    @RequestMapping("/creatQRCode")
     public ModelAndView creatQRCode(ModelAndView modelAndView, HttpSession session) {
         String path = activityService.creatQRCode(session);
         session.setAttribute("QR",path);
@@ -107,5 +107,12 @@ public class ManagerController {
         return modelAndView;
     }
 
+    @RequestMapping("/endActivity")
+    public String endActivity(@RequestParam(required = true) Long id) {
+        Activity activity = activityService.queryById(id);
+        activity.setDeadline(true);         //设为活动过期
+        activityService.update(activity);
+        return "redirect:/managerModel/selectActivity";
+    }
 
 }

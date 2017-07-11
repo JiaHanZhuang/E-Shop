@@ -20,7 +20,7 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity> implements Ac
         if(path!=null && !("".equals(path))){      //判断session存在与否
             File file = new File(QRCodeUtil.PATH+path);
             if(file.exists()) {             //判断文件路径是否存在
-                return file.getName();          //存在返回此路径
+                return path;          //存在返回此路径
             }
         }
         return QRCodeUtil.creatQRCode();        //不存在，重新生成

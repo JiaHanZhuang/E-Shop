@@ -95,9 +95,6 @@
                     <a href="#"><i class="fa fa-sitemap "></i>查看<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#">商家</a>
-                        </li>
-                        <li>
                             <a href="#">活动<span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level">
                                 <li>
@@ -135,6 +132,7 @@
                                 <th>#</th>
                                 <th>内容</th>
                                 <th>是否过期</th>
+                                <th>终止活动</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -148,6 +146,11 @@
                                         </c:if>
                                         <c:if test="${! activity.deadline}">
                                             还未过期
+                                        </c:if>
+                                    </td>
+                                    <td>
+                                        <c:if test="${! activity.deadline}">
+                                            <a href="${pageContext.request.contextPath}/managerModel/endActivity?id=${activity.id}">终止</a>
                                         </c:if>
                                     </td>
                                 </tr>

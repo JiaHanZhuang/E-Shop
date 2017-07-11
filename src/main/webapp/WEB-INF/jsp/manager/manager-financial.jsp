@@ -103,9 +103,6 @@
                     <a href="#"><i class="fa fa-sitemap "></i>查看<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#">商家</a>
-                        </li>
-                        <li>
                             <a href="#">活动<span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level">
                                 <li>
@@ -146,7 +143,7 @@
                                 <input name="excel" type="file" />
                             </div>
                             <div class="col-md-4">
-                                <input type="submit"  value="导入">
+                                <input type="submit" class="btn btn-primary" value="导入">
                             </div>
                         </form>
                     </div>

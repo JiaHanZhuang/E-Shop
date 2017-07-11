@@ -15,4 +15,33 @@
     <!-- service包扫描器 -->
     <context:component-scan base-package="com.zjh.e.service"/>
 
+    <!--定时调度-->
+    <!--定义一个任务类-->
+    <bean id="mytask" class="com.zjh.e.task.QRCodeTask"/>
+    <!-- jobDetail -->
+    <bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="mytask"/>
+        <property name="targetMethod" value="execute"/>
+        <!-- 不并发调度 -->
+        <property name="concurrent" value="false"/>
+    </bean>
+    <!--因为配置了concurrent等于false，所以假如run方法的执行时间超过10秒，
+    在执行完之前即使时间已经超过了10秒下一个定时计划执行任务仍不会被开启，如果是true，
+    则不管是否执行完，时间到了都将开启。-->
+
+    <!-- 定义trigger 触发器 -->
+    <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="jobDetail"/>
+        <property name="cronExpression" value="0 */1 * * * ?"/>
+        <!-- 每一分钟调用一次 -->
+    </bean>
+
+    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="cronTrigger"/>
+            </list>
+        </property>
+    </bean>
+
 </beans>

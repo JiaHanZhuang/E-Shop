@@ -89,9 +89,6 @@
                     <a href="#"><i class="fa fa-sitemap "></i>查看<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#">商家</a>
-                        </li>
-                        <li>
                             <a href="#">活动<span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level">
                                 <li>
@@ -182,7 +179,7 @@
                             </div>
                             <div id="collapseThree" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    将恶意店家从网站中去除
+                                    查看财务
                                 </div>
                             </div>
                         </div>

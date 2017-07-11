@@ -111,9 +111,6 @@
                     <a href="#"><i class="fa fa-sitemap "></i>查看<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#">商家</a>
-                        </li>
-                        <li>
                             <a href="#">活动<span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level">
                                 <li>

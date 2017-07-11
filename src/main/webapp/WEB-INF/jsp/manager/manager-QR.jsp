@@ -119,15 +119,17 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2>二维码</h2>
+                    <img src="/QRcode/${QR}" class="img-responsive" width="260px"/>
                 </div>
             </div>
         </div>
-        <hr />
-        <div class="row">
-            <div class="col-md-6 col-sm-3 col-xs-6">
-                <img src="/QRcode/${QR}" class="img-responsive" width="260px"/>
-            </div>
-        </div>
+        <%--<hr />--%>
+        <%--<div class="row">--%>
+            <%--<div class="col-md-6 col-sm-3 col-xs-6">--%>
+                <%----%>
+            <%--</div>--%>
+        <%--</div>--%>
+        <%--<hr/>--%>
     </div>
 </div>
 

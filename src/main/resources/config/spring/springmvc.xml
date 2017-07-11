@@ -12,21 +12,21 @@
 	<!-- 配置扫描器@Controller -->
 	<context:component-scan base-package="com.zjh.e.controller"></context:component-scan>
 
-	<mvc:resources location="resources/JQuery/" mapping="resources/JQuery/**" />
-	<mvc:resources location="WEB-INF/img/" mapping="/img/**" />
-	<mvc:resources location="resources/manager-shop/css/" mapping="resources/manager-shop/css/**" />
-	<mvc:resources location="resources/manager-shop/font-awesome/fonts/" mapping="resources/manager-shop/font-awesome/fonts/**"/>
-	<mvc:resources location="resources/manager-shop/fonts/" mapping="resources/manager-shop/fonts/**"/>
-	<mvc:resources location="resources/manager-shop/img/" mapping="resources/manager-shop/img/**"/>
-	<mvc:resources mapping="resources/manager-shop/js/**" location="resources/manager-shop/js/"/>
-	<mvc:resources location="resources/login/css/" mapping="resources/login/css/**"/>
-	<mvc:resources mapping="resources/login/fonts/**" location="resources/login/fonts/"/>
+	<!--<mvc:resources location="resources/JQuery/" mapping="resources/JQuery/**" />-->
+	<!--<mvc:resources location="WEB-INF/img/" mapping="/img/**" />-->
+	<!--<mvc:resources location="resources/manager-shop/css/" mapping="resources/manager-shop/css/**" />-->
+	<!--<mvc:resources location="resources/manager-shop/font-awesome/fonts/" mapping="resources/manager-shop/font-awesome/fonts/**"/>-->
+	<!--<mvc:resources location="resources/manager-shop/fonts/" mapping="resources/manager-shop/fonts/**"/>-->
+	<!--<mvc:resources location="resources/manager-shop/img/" mapping="resources/manager-shop/img/**"/>-->
+	<!--<mvc:resources mapping="resources/manager-shop/js/**" location="resources/manager-shop/js/"/>-->
+	<!--<mvc:resources location="resources/login/css/" mapping="resources/login/css/**"/>-->
+	<!--<mvc:resources mapping="resources/login/fonts/**" location="resources/login/fonts/"/>-->
 
-	<mvc:resources mapping="resources/login/js/**" location="resources/login/js/"/>
-	<mvc:resources mapping="resources/login/plugins/iCheck/css/**" location="resources/login/plugins/iCheck/css/"/>
-	<mvc:resources mapping="resources/login/plugins/iCheck/js/**" location="resources/login/plugins/iCheck/js/"/>
-	<mvc:resources mapping="/excel/**" location="WEB-INF/excel/"/>
-
+	<!--<mvc:resources mapping="resources/login/js/**" location="resources/login/js/"/>-->
+	<!--<mvc:resources mapping="resources/login/plugins/iCheck/css/**" location="resources/login/plugins/iCheck/css/"/>-->
+	<!--<mvc:resources mapping="resources/login/plugins/iCheck/js/**" location="resources/login/plugins/iCheck/js/"/>-->
+	<!--<mvc:resources mapping="/excel/**" location="WEB-INF/excel/"/>-->
+	<mvc:default-servlet-handler></mvc:default-servlet-handler>
 
 	<mvc:annotation-driven></mvc:annotation-driven>
 

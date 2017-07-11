@@ -1,8 +1,10 @@
 package com.zjh.e.test;
 
 import com.zjh.e.utils.DateFileNameUtil;
+import com.zjh.e.utils.QRCodeUtil;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.Date;
 
 /**
@@ -11,8 +13,13 @@ import java.util.Date;
 public class DateFileNameTest {
     @Test
     public void testFileName() {
-        System.out.println(DateFileNameUtil.getFileName(-5));
-        System.out.println(DateFileNameUtil.creatFileName());
+//        System.out.println(DateFileNameUtil.getFileName(-5));
+//        System.out.println(DateFileNameUtil.creatFileName());
+        File file = new File(QRCodeUtil.PATH);
+        File[] files = file.listFiles();
+        for(File file1: files){
+            System.out.print(file1.getName());
+        }
     }
 
 }
