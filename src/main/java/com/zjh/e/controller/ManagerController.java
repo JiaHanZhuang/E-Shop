@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by Administrator on 2017/7/8.
@@ -97,5 +98,14 @@ public class ManagerController {
         modelAndView.setViewName("manager/manager-activity");
         return modelAndView;
     }
+
+    @RequestMapping("creatQRCode")
+    public ModelAndView creatQRCode(ModelAndView modelAndView, HttpSession session) {
+        String path = activityService.creatQRCode(session);
+        session.setAttribute("QR",path);
+        modelAndView.setViewName("manager/manager-QR");
+        return modelAndView;
+    }
+
 
 }

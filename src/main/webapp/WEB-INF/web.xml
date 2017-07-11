@@ -36,6 +36,7 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 
+
   <!--&lt;!&ndash; springmvc前端控制器，rest配置 &ndash;&gt;-->
   <!--<servlet>-->
     <!--<servlet-name>springmvc_rest</servlet-name>-->

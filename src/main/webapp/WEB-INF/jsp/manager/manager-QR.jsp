@@ -1,17 +1,15 @@
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
-  Date: 2017/7/9
-  Time: 21:08
+  Date: 2017/7/7
+  Time: 0:13
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>管理员系统</title>
     <!-- BOOTSTRAP STYLES-->
@@ -22,21 +20,7 @@
     <link href="${pageContext.request.contextPath}/resources/manager-shop/css/custom.css" rel="stylesheet" />
     <!-- GOOGLE FONTS-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-    <script src="${pageContext.request.contextPath}/resources/JQuery/ueditor.config.js"  type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/resources/JQuery/ueditor.all.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/resources/JQuery/lang/zh-cn.js"></script>
     <script type="text/javascript">
-        function formAjax(testform) {
-            var txt = ue.getContentTxt();
-            var url = "${pageContext.request.contextPath}/managerModel/insertActivity";
-            $.post(url,{
-                text:txt,
-                args:new Date()
-            },function (data) {
-                window.location.href = "${pageContext.request.contextPath}/"+data.url;
-            },"JSON");
-        }
-
         function install() {
             var url = "${pageContext.request.contextPath}/install/action";
             var args = {"time": new Date()}
@@ -63,9 +47,6 @@
     </script>
 </head>
 <body>
-
-
-
 <div id="wrapper">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="adjust-nav">
@@ -92,15 +73,12 @@
             <ul class="nav" id="main-menu">
                 <li class="text-center user-image-back">
                     <img src="${pageContext.request.contextPath}/resources/manager-shop/img/find_user.png" class="img-responsive" />
-
                 </li>
-
-
                 <li>
                     <a href="${pageContext.request.contextPath}/loginManager/managerIndex"><i class="fa fa-desktop "></i>首页</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-table "></i>公司财政<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-table"></i>公司财政<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a href="${pageContext.request.contextPath}/managerModel/financialList">公司财政</a>
@@ -136,42 +114,21 @@
 
     </nav>
     <!-- /. NAV SIDE  -->
-    <div id="page-wrapper" >
+    <div id="page-wrapper">
         <div id="page-inner">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>活动信息</h2>
-                </div>
-                <hr/>
-                <div class="col-md-8">
-                    <form method="post" id="textform" action="#">
-                        <script id="container" name="text" type="text/plain">活动内容</script>
-                        <input type="button" value="提交" onclick="formAjax(this.form)">
-                    </form>
-                    <!-- 实例化编辑器 -->
-                    <script type="text/javascript">
-                        var ue = UE.getEditor('container', {
-                            toolbars: [
-                                ['fullscreen', 'source', 'undo', 'redo'],
-                                ['bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript',
-                                    'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote',
-                                    'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist',
-                                    'insertunorderedlist', 'selectall', 'cleardoc']
-                            ],
-                            autoHeightEnabled: true,
-                            autoFloatEnabled: true
-                        });
-                    </script>
+                    <h2>二维码</h2>
                 </div>
             </div>
-            <!-- /. ROW  -->
-            <hr />
-
-            <!-- /. ROW  -->
         </div>
-        <!-- /. PAGE INNER  -->
+        <hr />
+        <div class="row">
+            <div class="col-md-6 col-sm-3 col-xs-6">
+                <img src="/QRcode/${QR}" class="img-responsive" width="260px"/>
+            </div>
+        </div>
     </div>
-    <!-- /. PAGE WRAPPER  -->
 </div>
 
 <jsp:include page="manager-index-transcript.jsp"></jsp:include>
@@ -202,10 +159,11 @@
     </div>
 </div>
 
+
 <!-- /. WRAPPER  -->
 <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
 <!-- JQUERY SCRIPTS -->
-<<script src="${pageContext.request.contextPath}/resources/JQuery/jquery-3.2.1.js"></script>
+<script src="${pageContext.request.contextPath}/resources/JQuery/jquery-3.2.1.js"></script>
 <!-- BOOTSTRAP SCRIPTS -->
 <script src="${pageContext.request.contextPath}/resources/manager-shop/js/bootstrap.min.js"></script>
 <!-- METISMENU SCRIPTS -->

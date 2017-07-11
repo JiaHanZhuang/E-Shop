@@ -2,7 +2,6 @@ package com.zjh.e.service;
 
 import com.zjh.e.pojo.Manager;
 
-import javax.jnlp.BasicService;
 
 /**
  * Created by Administrator on 2017/7/8.

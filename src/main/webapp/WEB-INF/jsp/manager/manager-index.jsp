@@ -106,7 +106,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-qrcode "></i>生成二维码</a>
+                    <a href="${pageContext.request.contextPath}/managerModel/creatQRCode"><i class="fa fa-qrcode "></i>生成二维码</a>
                 </li>
             </ul>
 

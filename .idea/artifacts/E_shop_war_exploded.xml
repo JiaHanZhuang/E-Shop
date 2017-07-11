@@ -72,6 +72,9 @@
           <element id="library" level="project" name="Maven: org.apache.poi:poi-scratchpad:3.15" />
           <element id="library" level="project" name="Maven: cn.songxinqiang:com.baidu.ueditor:1.1.2-edit-1.0" />
           <element id="library" level="project" name="Maven: org.json:json:20160212" />
+          <element id="library" level="project" name="Maven: com.google.zxing:core:3.2.1" />
+          <element id="library" level="project" name="Maven: com.google.zxing:javase:3.2.1" />
+          <element id="library" level="project" name="Maven: com.beust:jcommander:1.48" />
         </element>
       </element>
       <element id="directory" name="META-INF">

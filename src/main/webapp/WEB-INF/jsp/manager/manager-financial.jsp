@@ -28,6 +28,28 @@
         function doExportExcel(){
             window.open("${pageContext.request.contextPath}/managerModel/download");
         }
+        function install() {
+            var url = "${pageContext.request.contextPath}/install/action";
+            var args = {"time": new Date()}
+            $.getJSON(url,args,function(data){
+                alert(data.message);
+            });
+        }
+
+        function checkAjax (loginform1) {
+            if(loginform1.password.value==""){       //验证密码是否为空
+                alert("请输入密码！");
+                loginform1.password.focus();
+                return false;
+            }
+            var password = loginform1.password.value;
+            var old_password =${manager.password};
+            if(password == old_password) {
+                openLoginModal1();
+            } else {
+                alert("输入错误,请重新输入");
+            }
+        }
 
     </script>
 
@@ -84,9 +106,6 @@
                             <a href="#">商家</a>
                         </li>
                         <li>
-                            <a href="#">公司财政</a>
-                        </li>
-                        <li>
                             <a href="#">活动<span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level">
                                 <li>
@@ -101,7 +120,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-qrcode "></i>生成二维码</a>
+                    <a href="${pageContext.request.contextPath}/managerModel/creatQRCode"><i class="fa fa-qrcode "></i>生成二维码</a>
                 </li>
             </ul>
 
@@ -184,6 +203,35 @@
     </div>
     <!-- /. PAGE WRAPPER  -->
 </div>
+
+<jsp:include page="manager-index-transcript.jsp"></jsp:include>
+
+<div class="modal fade login" id="loginModal2">
+    <div class="modal-dialog login animated">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">请输入新密码</h4>
+            </div>
+            <div class="modal-body">
+                <div class="box">
+                    <div class="content">
+                        <div class="error"></div>
+                        <div class="form loginBox">
+                            <form method="post" id="loginform2" accept-charset="UTF-8"
+                                  action="${pageContext.request.contextPath}/loginManager/changePassword" >
+                                <input type="hidden" value="${manager.id}" name="id">
+                                <input  class="form-control" type="password" placeholder="密码" name="password">
+                                <input class="btn btn-default btn-login" type="submit" value="修改">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- /. WRAPPER  -->
 <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
 <!-- JQUERY SCRIPTS -->
@@ -195,5 +243,6 @@
 <!-- CUSTOM SCRIPTS -->
 <script src="${pageContext.request.contextPath}/resources/manager-shop/js/custom.js"></script>
 
+<script src="${pageContext.request.contextPath}/resources/manager-shop/js/manager.js" type="text/javascript"></script>
 </body>
 </html>
