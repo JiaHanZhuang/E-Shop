@@ -1,5 +1,6 @@
 package com.zjh.e.pojo;
 
+import javax.persistence.Column;
 import javax.persistence.Id;
 
 /**
@@ -15,17 +16,27 @@ public class Commodity {
     private String detail;      //商品描述
     private String path;        //图片路径
     private int price;          //商品价格
+    private int inventory;      //库存
+    @Column(name = "is_putaway")
+    private boolean putaway;     //是否上架
 
     public Commodity() {
     }
 
-    public Commodity(Long id, String color, String type, String detail, String path, int price) {
-        this.id = id;
-        this.color = color;
-        this.type = type;
-        this.detail = detail;
-        this.path = path;
-        this.price = price;
+    public int getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(int inventory) {
+        this.inventory = inventory;
+    }
+
+    public boolean isPutaway() {
+        return putaway;
+    }
+
+    public void setPutaway(boolean putaway) {
+        this.putaway = putaway;
     }
 
     public Long getId() {

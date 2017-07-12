@@ -1,5 +1,6 @@
 package com.zjh.e.pojo;
 
+import javax.persistence.Column;
 import javax.persistence.Id;
 
 /**
@@ -9,24 +10,28 @@ import javax.persistence.Id;
 public class CommodityType {
 
     @Id
-    private int typeId;     //id
+    private int Id;                 //id
     private String typeName;        //商品类型名称
-    private int directoryLevel;     //商品目录等级
-    private Integer lastDirectory;      //上一级目录
+    private int parentId;           //父目录id
+    @Column(name="is_parent")
+    private boolean parent;         //是否为父目录
 
-    public CommodityType(int typeId, String typeName, int directoryLevel, Integer lastDirectory) {
-        this.typeId = typeId;
+    public CommodityType() {
+    }
+
+    public CommodityType(int id, String typeName, int parentId, boolean parent) {
+        Id = id;
         this.typeName = typeName;
-        this.directoryLevel = directoryLevel;
-        this.lastDirectory = lastDirectory;
+        this.parentId = parentId;
+        this.parent = parent;
     }
 
-    public int getTypeId() {
-        return typeId;
+    public int getId() {
+        return Id;
     }
 
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
+    public void setId(int id) {
+        Id = id;
     }
 
     public String getTypeName() {
@@ -37,19 +42,19 @@ public class CommodityType {
         this.typeName = typeName;
     }
 
-    public int getDirectoryLevel() {
-        return directoryLevel;
+    public int getParentId() {
+        return parentId;
     }
 
-    public void setDirectoryLevel(int directoryLevel) {
-        this.directoryLevel = directoryLevel;
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
     }
 
-    public Integer getLastDirectory() {
-        return lastDirectory;
+    public boolean isParent() {
+        return parent;
     }
 
-    public void setLastDirectory(Integer lastDirectory) {
-        this.lastDirectory = lastDirectory;
+    public void setParent(boolean parent) {
+        this.parent = parent;
     }
 }

@@ -3,6 +3,7 @@ package com.zjh.e.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zjh.e.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.entity.Example;
@@ -12,7 +13,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/7/6.
  */
-public abstract class BaseServiceImpl<T> {
+public abstract class BaseServiceImpl<T> implements BaseService<T>{
 
     @Autowired
     private Mapper<T> mapper;

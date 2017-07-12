@@ -14,14 +14,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>管理员系统</title>
-    <!-- BOOTSTRAP STYLES-->
-    <link href="${pageContext.request.contextPath}/resources/manager-shop/css/bootstrap.css" rel="stylesheet" />
-    <!-- FONTAWESOME STYLES-->
-    <link href="${pageContext.request.contextPath}/resources/manager-shop/css/font-awesome.css" rel="stylesheet" />
-    <!-- CUSTOM STYLES-->
-    <link href="${pageContext.request.contextPath}/resources/manager-shop/css/custom.css" rel="stylesheet" />
-    <!-- GOOGLE FONTS-->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <jsp:include page="manager-common.jsp"/>
     <script src="${pageContext.request.contextPath}/resources/JQuery/ueditor.config.js"  type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/resources/JQuery/ueditor.all.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/resources/JQuery/lang/zh-cn.js"></script>
@@ -171,45 +164,6 @@
     <!-- /. PAGE WRAPPER  -->
 </div>
 
-<jsp:include page="manager-index-transcript.jsp"></jsp:include>
-
-<div class="modal fade login" id="loginModal2">
-    <div class="modal-dialog login animated">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">请输入新密码</h4>
-            </div>
-            <div class="modal-body">
-                <div class="box">
-                    <div class="content">
-                        <div class="error"></div>
-                        <div class="form loginBox">
-                            <form method="post" id="loginform2" accept-charset="UTF-8"
-                                  action="${pageContext.request.contextPath}/loginManager/changePassword" >
-                                <input type="hidden" value="${manager.id}" name="id">
-                                <input  class="form-control" type="password" placeholder="密码" name="password">
-                                <input class="btn btn-default btn-login" type="submit" value="修改">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- /. WRAPPER  -->
-<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-<!-- JQUERY SCRIPTS -->
-<<script src="${pageContext.request.contextPath}/resources/JQuery/jquery-3.2.1.js"></script>
-<!-- BOOTSTRAP SCRIPTS -->
-<script src="${pageContext.request.contextPath}/resources/manager-shop/js/bootstrap.min.js"></script>
-<!-- METISMENU SCRIPTS -->
-<script src="${pageContext.request.contextPath}/resources/manager-shop/js/jquery.metisMenu.js"></script>
-<!-- CUSTOM SCRIPTS -->
-<script src="${pageContext.request.contextPath}/resources/manager-shop/js/custom.js"></script>
-
-<script src="${pageContext.request.contextPath}/resources/manager-shop/js/manager.js" type="text/javascript"></script>
+<jsp:include page="manager-index-transcript.jsp"/>
 </body>
 </html>
