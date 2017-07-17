@@ -11,18 +11,11 @@ public class Financial {
 
     @Id
     private Long id;        //主键
-    private int expend;     //支出
-    private int earning;    //收入
+    private Integer expend;     //支出
+    private Integer earning;    //收入
     private Date time;      //创建时间
 
     public Financial() {
-    }
-
-    public Financial(Long id, int expend, int earning, Date time) {
-        this.id = id;
-        this.expend = expend;
-        this.earning = earning;
-        this.time = time;
     }
 
     public Long getId() {
@@ -33,19 +26,19 @@ public class Financial {
         this.id = id;
     }
 
-    public int getExpend() {
+    public Integer getExpend() {
         return expend;
     }
 
-    public void setExpend(int expend) {
+    public void setExpend(Integer expend) {
         this.expend = expend;
     }
 
-    public int getEarning() {
+    public Integer getEarning() {
         return earning;
     }
 
-    public void setEarning(int earning) {
+    public void setEarning(Integer earning) {
         this.earning = earning;
     }
 

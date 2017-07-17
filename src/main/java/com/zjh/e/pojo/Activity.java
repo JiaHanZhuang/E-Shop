@@ -13,13 +13,7 @@ public class Activity {
     private Long id;            //索引
     private String text;        //活动内容
     @Column(name="is_deadline")
-    private boolean deadline;     //活动是否过期
-
-    public Activity(Long id, String text, boolean deadline) {
-        this.id = id;
-        this.text = text;
-        this.deadline = deadline;
-    }
+    private Boolean deadline;     //活动是否过期
 
     public Activity() {
     }
@@ -40,11 +34,11 @@ public class Activity {
         this.text = text;
     }
 
-    public boolean isDeadline() {
+    public Boolean getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(boolean deadline) {
+    public void setDeadline(Boolean deadline) {
         this.deadline = deadline;
     }
 }

@@ -331,9 +331,14 @@
     <!--end-->
     <!-- 百度富文本使用 -->
     <dependency>
-      <groupId>cn.songxinqiang</groupId>
-      <artifactId>com.baidu.ueditor</artifactId>
-      <version>1.1.2-edit-1.0</version>
+      <groupId>com.baidu.ueditor</groupId>
+      <artifactId>ueditor</artifactId>
+      <version>1.1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20160810</version>
     </dependency>
     <!--end-->
     <!-- 生成二维码所用jar包 -->
@@ -355,7 +360,13 @@
       <version>2.2.1</version>
     </dependency>
     <!--end-->
-
+    <!-- 邮箱jar包-->
+    <dependency>
+      <groupId>com.sun.mail</groupId>
+      <artifactId>javax.mail</artifactId>
+      <version>1.4.4</version>
+    </dependency>
+    <!--end-->
 
   </dependencies>
   <build>

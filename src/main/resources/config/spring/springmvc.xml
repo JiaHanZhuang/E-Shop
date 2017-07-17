@@ -10,25 +10,11 @@
 	   http://www.springframework.org/schema/mvc
 	   http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	<!-- 配置扫描器@Controller -->
-	<context:component-scan base-package="com.zjh.e.controller"></context:component-scan>
+	<context:component-scan base-package="com.zjh.e.controller"/>
 
-	<!--<mvc:resources location="resources/JQuery/" mapping="resources/JQuery/**" />-->
-	<!--<mvc:resources location="WEB-INF/img/" mapping="/img/**" />-->
-	<!--<mvc:resources location="resources/manager-shop/css/" mapping="resources/manager-shop/css/**" />-->
-	<!--<mvc:resources location="resources/manager-shop/font-awesome/fonts/" mapping="resources/manager-shop/font-awesome/fonts/**"/>-->
-	<!--<mvc:resources location="resources/manager-shop/fonts/" mapping="resources/manager-shop/fonts/**"/>-->
-	<!--<mvc:resources location="resources/manager-shop/img/" mapping="resources/manager-shop/img/**"/>-->
-	<!--<mvc:resources mapping="resources/manager-shop/js/**" location="resources/manager-shop/js/"/>-->
-	<!--<mvc:resources location="resources/login/css/" mapping="resources/login/css/**"/>-->
-	<!--<mvc:resources mapping="resources/login/fonts/**" location="resources/login/fonts/"/>-->
+	<mvc:default-servlet-handler/>
 
-	<!--<mvc:resources mapping="resources/login/js/**" location="resources/login/js/"/>-->
-	<!--<mvc:resources mapping="resources/login/plugins/iCheck/css/**" location="resources/login/plugins/iCheck/css/"/>-->
-	<!--<mvc:resources mapping="resources/login/plugins/iCheck/js/**" location="resources/login/plugins/iCheck/js/"/>-->
-	<!--<mvc:resources mapping="/excel/**" location="WEB-INF/excel/"/>-->
-	<mvc:default-servlet-handler></mvc:default-servlet-handler>
-
-	<mvc:annotation-driven></mvc:annotation-driven>
+	<mvc:annotation-driven validator="validator"/>
 
 	<!-- 视图解析器 -->
 	<bean
@@ -46,6 +32,25 @@
 			<value>5242880</value>
 		</property>
 		<property name="defaultEncoding"><value>UTF-8</value></property>
+	</bean>
+
+	<!-- 配置校驗器 -->
+	<bean id="validator"
+		  class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<!--hibernate的校驗器-->
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+		<property name="validationMessageSource" ref="messageSource"/>
+	</bean>
+
+	<!--校驗信息錯誤信息配置文件-->
+	<bean id="messageSource"
+			class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<!--資源文化-->
+		<property name="basenames" value="config.CustomValidationMessages"/>
+		<!--资源文件格式-->
+		<property name="fileEncodings" value="utf-8"/>
+		<!--对资源文化的缓存时间，单位：秒-->
+		<property name="cacheSeconds" value="120"/>
 	</bean>
 
 </beans>

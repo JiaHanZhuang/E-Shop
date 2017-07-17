@@ -1,5 +1,8 @@
 package com.zjh.e.pojo;
 
+import com.zjh.e.validator.Phone;
+import org.hibernate.validator.constraints.Range;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.util.Date;
@@ -15,21 +18,14 @@ public class UserExpand {
     private Long id;        //外键索引
     private Date birthday;      //用户出生年月
     @Column(name="is_sex")
-    private boolean sex;           //用户性别
+    private Boolean sex;           //用户性别
+    @Phone
     private String phone;        //用户手机号码
     private String name;           //用户姓名
-    private int args;              //用户年龄
+    @Range(min = 0,max = 150,message = "{user.age}")
+    private Integer age;              //用户年龄
 
     public UserExpand() {
-    }
-
-    public UserExpand(Long id, Date birthday, boolean sex, String phone, String name, int args) {
-        this.id = id;
-        this.birthday = birthday;
-        this.sex = sex;
-        this.phone = phone;
-        this.name = name;
-        this.args = args;
     }
 
     public Long getId() {
@@ -48,11 +44,11 @@ public class UserExpand {
         this.birthday = birthday;
     }
 
-    public boolean isSex() {
+    public Boolean getSex() {
         return sex;
     }
 
-    public void setSex(boolean sex) {
+    public void setSex(Boolean sex) {
         this.sex = sex;
     }
 
@@ -72,11 +68,11 @@ public class UserExpand {
         this.name = name;
     }
 
-    public int getArgs() {
-        return args;
+    public Integer getAge() {
+        return age;
     }
 
-    public void setArgs(int args) {
-        this.args = args;
+    public void setAge(Integer age) {
+        this.age = age;
     }
 }

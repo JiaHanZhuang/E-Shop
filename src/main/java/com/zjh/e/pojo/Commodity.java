@@ -15,28 +15,12 @@ public class Commodity {
     private String type;        //商品类型
     private String detail;      //商品描述
     private String path;        //图片路径
-    private int price;          //商品价格
-    private int inventory;      //库存
+    private Integer price;          //商品价格
+    private Integer inventory;      //库存
     @Column(name = "is_putaway")
-    private boolean putaway;     //是否上架
+    private Boolean putaway;     //是否上架
 
     public Commodity() {
-    }
-
-    public int getInventory() {
-        return inventory;
-    }
-
-    public void setInventory(int inventory) {
-        this.inventory = inventory;
-    }
-
-    public boolean isPutaway() {
-        return putaway;
-    }
-
-    public void setPutaway(boolean putaway) {
-        this.putaway = putaway;
     }
 
     public Long getId() {
@@ -79,11 +63,27 @@ public class Commodity {
         this.path = path;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Integer price) {
         this.price = price;
+    }
+
+    public Integer getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Integer inventory) {
+        this.inventory = inventory;
+    }
+
+    public Boolean getPutaway() {
+        return putaway;
+    }
+
+    public void setPutaway(Boolean putaway) {
+        this.putaway = putaway;
     }
 }

@@ -33,7 +33,7 @@
     <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
         <!-- 扫描包路径 -->
         <property name="basePackage" value="com.zjh.e.mapper"/>
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 
 </beans>

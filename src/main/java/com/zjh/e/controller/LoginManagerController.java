@@ -29,11 +29,14 @@ public class LoginManagerController {
     @RequestMapping("/logincheckManager")
     @ResponseBody
     public MessageUtils login(Manager manager, HttpSession session) {
+        //查询是否有此管理员账号
         Manager m = loginMangerService.login(manager);
+        //暂时把查询结果存进session
         session.setAttribute("manager",m);
-        if (m!=null) {
+        if (m!=null) {      //判断查询结果是否为空
             return new MessageUtils("loginManager/managerIndex.action","成功");
         } else {
+            //为空移除session
             session.removeAttribute("manager");
             return new MessageUtils(null,null);
         }

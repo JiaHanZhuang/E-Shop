@@ -1,5 +1,7 @@
 package com.zjh.e.pojo;
 
+import org.hibernate.validator.constraints.Email;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 
@@ -13,25 +15,15 @@ public class UserBasic {
     private Long id;        //索引
     private String userName;       //账号
     @Column(name = "is_shop")
-    private boolean shop;            //是否为商家身份
-    private int member;            //会员等级
+    private Boolean shop;            //是否为商家身份
+    private Integer member;            //会员等级
     private String password;        //密码
-    private long integral;          //积分
+    private Long integral;          //积分
+    @Email(message = "{user.email}")
     private String email;       //用户邮箱
-    private int money;              //用户余额
+    private Integer money;              //用户余额
 
     public UserBasic() {
-    }
-
-    public UserBasic(Long id, String userName, boolean shop, int member, String password, long integral, String email, int money) {
-        this.id = id;
-        this.userName = userName;
-        this.shop = shop;
-        this.member = member;
-        this.password = password;
-        this.integral = integral;
-        this.email = email;
-        this.money = money;
     }
 
     public Long getId() {
@@ -50,11 +42,19 @@ public class UserBasic {
         this.userName = userName;
     }
 
-    public int getMember() {
+    public Boolean getShop() {
+        return shop;
+    }
+
+    public void setShop(Boolean shop) {
+        this.shop = shop;
+    }
+
+    public Integer getMember() {
         return member;
     }
 
-    public void setMember(int member) {
+    public void setMember(Integer member) {
         this.member = member;
     }
 
@@ -66,11 +66,11 @@ public class UserBasic {
         this.password = password;
     }
 
-    public long getIntegral() {
+    public Long getIntegral() {
         return integral;
     }
 
-    public void setIntegral(long integral) {
+    public void setIntegral(Long integral) {
         this.integral = integral;
     }
 
@@ -82,19 +82,11 @@ public class UserBasic {
         this.email = email;
     }
 
-    public int getMoney() {
+    public Integer getMoney() {
         return money;
     }
 
-    public void setMoney(int money) {
+    public void setMoney(Integer money) {
         this.money = money;
-    }
-
-    public boolean isShop() {
-        return shop;
-    }
-
-    public void setShop(boolean shop) {
-        this.shop = shop;
     }
 }

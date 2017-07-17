@@ -10,27 +10,27 @@ import javax.persistence.Id;
 public class CommodityType {
 
     @Id
-    private int Id;                 //id
+    private Integer Id;                 //id
     private String typeName;        //商品类型名称
-    private int parentId;           //父目录id
+    private Integer parentId;           //父目录id
     @Column(name="is_parent")
-    private boolean parent;         //是否为父目录
+    private Boolean parent;         //是否为父目录
 
-    public CommodityType() {
-    }
-
-    public CommodityType(int id, String typeName, int parentId, boolean parent) {
+    public CommodityType(Integer id, String typeName, Integer parentId, Boolean parent) {
         Id = id;
         this.typeName = typeName;
         this.parentId = parentId;
         this.parent = parent;
     }
 
-    public int getId() {
+    public CommodityType() {
+    }
+
+    public Integer getId() {
         return Id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         Id = id;
     }
 
@@ -42,19 +42,19 @@ public class CommodityType {
         this.typeName = typeName;
     }
 
-    public int getParentId() {
+    public Integer getParentId() {
         return parentId;
     }
 
-    public void setParentId(int parentId) {
+    public void setParentId(Integer parentId) {
         this.parentId = parentId;
     }
 
-    public boolean isParent() {
+    public Boolean getParent() {
         return parent;
     }
 
-    public void setParent(boolean parent) {
+    public void setParent(Boolean parent) {
         this.parent = parent;
     }
 }

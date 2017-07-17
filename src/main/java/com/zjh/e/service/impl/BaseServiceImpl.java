@@ -23,7 +23,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T>{
         return this.mapper.selectByPrimaryKey(id);
     }
 
-    //查询所用
+    //查询所有
     public List<T> queryAll() {
         return this.mapper.selectAll();
     }

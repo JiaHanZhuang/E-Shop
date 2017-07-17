@@ -9,24 +9,18 @@ import javax.persistence.Id;
 public class Manager {
 
     @Id
-    private int id;
+    private Integer id;
     private String name;
     private String password;
 
     public Manager() {
     }
 
-    public Manager(int id, String name, String password) {
-        this.id = id;
-        this.name = name;
-        this.password = password;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -45,5 +39,4 @@ public class Manager {
     public void setPassword(String password) {
         this.password = password;
     }
-
 }

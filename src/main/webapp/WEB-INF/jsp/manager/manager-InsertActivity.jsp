@@ -15,9 +15,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>管理员系统</title>
     <jsp:include page="manager-common.jsp"/>
-    <script src="${pageContext.request.contextPath}/resources/JQuery/ueditor.config.js"  type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/resources/JQuery/ueditor.all.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/resources/JQuery/lang/zh-cn.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/ueditor/ueditor.config.js"  type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/resources/ueditor/ueditor.all.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/resources/ueditor/lang/zh-cn/zh-cn.js"></script>
     <script type="text/javascript">
         function formAjax(testform) {
             var txt = ue.getContentTxt();
