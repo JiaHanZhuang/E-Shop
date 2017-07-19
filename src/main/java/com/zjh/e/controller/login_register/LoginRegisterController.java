@@ -68,7 +68,7 @@ public class LoginRegisterController {
         userExpand.setId(id);
         userExpandService.saveSelect(userExpand);
         //发送账户已激活通知邮件
-        EMailUtils.sendAccountActivateEmail(userBasic.getEmail());
+        EMailUtils.sendAccountActivateEmail(userBasic.getEmail(),"恭喜你已激活了E-shop账号");
         messageUtils.setUrl("/homePage");
         return messageUtils;
     }

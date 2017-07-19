@@ -21,7 +21,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="keywords" content=""/>
-    <jsp:include page="login_js.jsp"></jsp:include>
     <script type="application/x-javascript"> addEventListener("load", function () {
         setTimeout(hideURLbar, 0);
     }, false);
@@ -71,40 +70,7 @@
         });
     });
     </script>
-    <script type="text/javascript">
-        function checkUserIsLogin() {
-            if(${user==null}) {
-                openLoginModal();
-            } else {
-                alert("已登录");
-            }
-        }
-
-        function login(loginform){
-            if(loginform.email.value==""){
-                alert("请输入邮箱！");
-                loginform.email.focus();
-                return false;
-            }
-            if(loginform.password.value==""){
-                alert("请输入密码！");
-                loginform.password.focus();
-                return false;
-            }
-            var url = "${pageContext.request.contextPath}/login"
-            $.post(url,{
-                email:loginform.email.value,
-                password:loginform.password.value
-            },function (data) {
-                if(data.url==null){
-                    alert(data.message);
-                } else {
-                    window.location.href = "${pageContext.request.contextPath}"+data.url;
-                }
-            },"JSON");
-        }
-
-    </script>
+    <jsp:include page="login_js.jsp"></jsp:include>
 
 </head>
 <body>
@@ -178,7 +144,7 @@
             <div class="h_menu4">
                 <a class="toggleMenu" href="#">Menu</a>
                 <ul class="nav">
-                    <li class="active"><a href="#"><i> </i>首页</a></li>
+                    <li class="active"><a href="${pageContext.request.contextPath}/homePage"><i> </i>首页</a></li>
                     <li><a href="#">食物&&服装</a>
                         <ul class="drop">
                             <li><a href="#">童装</a></li>
