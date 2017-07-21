@@ -196,6 +196,10 @@
             <input type="text" value="${User.userExpand.name}" disabled="disabled">
         </div>
         <div>
+            <span class="name-in">昵称　　</span>
+            <input type="text" value="${User.userBasic.userName}" disabled="disabled">
+        </div>
+        <div>
             <span class="name-in">会员等级</span>
             <input type="text" value="${User.userBasic.member}" disabled="disabled">
         </div>
@@ -239,7 +243,7 @@
             </div>
         </c:if>
         <div>
-            <a href="#"><button>充值</button></a>
+            <a href="#" onclick="openPayModal()"><button>充值</button></a>
         </div>
     </div>
 </div>

@@ -78,3 +78,23 @@ function hiddenCodeModal() {
     $('.error').addClass('alert alert-danger').html('');
 }
 
+
+function showPayForm() {
+    $('#payCode .registerBox').fadeOut('fast', function () {
+        $('.loginBox').fadeIn('fast');
+        $('.register-footer').fadeOut('fast', function () {
+            $('.login-footer').fadeIn('fast');
+        });
+
+        $('.modal-title').html('Login with');
+    });
+    $('.error').removeClass('alert alert-danger').html('');
+}
+
+function openPayModal() {
+    showPayForm();
+    setTimeout(function () {
+        $('#payCode').modal('show');
+    }, 230);
+
+}

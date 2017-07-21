@@ -200,6 +200,10 @@
                 <input type="text" value="${User.userExpand.name}" name="name">
             </div>
             <div>
+                <span class="name-in">昵称　　</span>
+                <input type="text" value="${User.userBasic.userName}" disabled="disabled">
+            </div>
+            <div>
                 <span class="word">性别　　</span>
                 <select name="sex">
                     <option value="true"
@@ -216,10 +220,12 @@
                 <span class="word">年龄　　</span>
                 <input type="text" value="${User.userExpand.age}" name="age">
             </div>
-            <div>
-                <span class="word">手机号码</span>
-                <input type="text" value="${User.userExpand.phone}" name="phone">
-            </div>
+            <c:if test="${User.userExpand.phone == null}">
+                <div>
+                    <span class="word">手机号码</span>
+                    <input type="text" value="${User.userExpand.phone}" name="phone">
+                </div>
+            </c:if>
             <div>
                 <span class="word">出生日期</span>
                 <input type="text" style="height: 40px;width: 60%" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"

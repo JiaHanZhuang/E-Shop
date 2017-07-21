@@ -5,10 +5,8 @@ import com.zjh.e.pojo.UserBasic;
 import com.zjh.e.pojo.UserExpand;
 import com.zjh.e.service.UserBasicService;
 import com.zjh.e.service.UserExpandService;
-import com.zjh.e.utils.EMailUtils;
-import com.zjh.e.utils.MD5Util;
-import com.zjh.e.utils.MessageUtils;
-import com.zjh.e.utils.PhoneUtil;
+import com.zjh.e.service.UserService;
+import com.zjh.e.utils.*;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +28,8 @@ public class UserController {
     private UserBasicService userBasicService;
     @Autowired
     private UserExpandService userExpandService;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/information")
     public ModelAndView selectUser(@RequestParam(required = true) Long id,
@@ -72,51 +72,23 @@ public class UserController {
 
     @RequestMapping("/passwordByPhone")
     @ResponseBody
-    public MessageUtils passwordByPhone(Long id, HttpSession session) {
+    public MessageUtils passwordByPhone(Long id) {
         UserExpand userExpand = userExpandService.queryById(id);
-        //防止空指针异常
-        if (userExpand != null) {
-            String phone = userExpand.getPhone();
-            //判断用户是否已经填写了手机号码
-            if (phone != null) {
-                Integer identifyingCode = PhoneUtil.sendNote(phone);
-                session.setAttribute("identifyingCode", identifyingCode);
-                return new MessageUtils();
-            } else {
-                return new MessageUtils(null, "未填写手机号码，无法通过手机号码进行密码修改");
-            }
-        } else {
-            return new MessageUtils(null, "无此用户");
-        }
+        return userService.passwordByPhone(userExpand);
     }
 
     @RequestMapping("/passwordByEmail")
     @ResponseBody
-    public MessageUtils passwordByEmail(Long id, HttpSession session) throws Exception {
+    public MessageUtils passwordByEmail(Long id) throws Exception {
         UserBasic userBasic = userBasicService.queryById(id);
-        //防止空指针
-        if(userBasic!=null) {
-            //生成验证码
-            int mobile_code = (int)((Math.random()*9+1)*100000);
-            String content = "您好，您正在使用网站的忘记密码找回操作，本次验证码为：" + mobile_code + ", 请勿泄露。";
-            EMailUtils.sendAccountActivateEmail(userBasic.getEmail(),content);
-            session.setAttribute("identifyingCode",mobile_code);
-            return new MessageUtils();
-        } else {
-            return new MessageUtils(null,"无此用户");
-        }
+        return userService.passwordByEmail(userBasic);
     }
 
     @RequestMapping("/checkIdentifyingCode")
     @ResponseBody
     public MessageUtils checkIdentifyingCode(
             @RequestParam(required = true) String identifyingCode,HttpSession session) {
-        String code = session.getAttribute("identifyingCode").toString();
-        if(identifyingCode.equals(code)) {
-            return new MessageUtils("/updatePassword",null);
-        } else {
-            return new MessageUtils(null,"验证码错误，请重新输入");
-        }
+        return userService.checkIdentifyingCode(identifyingCode);
     }
 
     @RequestMapping("/updateBySelectUser")
@@ -135,6 +107,13 @@ public class UserController {
     public String updateInformation(UserExpand userExpand) {
         userExpandService.updateSelective(userExpand);
         Long id = userExpand.getId();
+        return "redirect:/information?id="+id;
+    }
+
+    @RequestMapping("/pay")
+    public String pay(UserBasic userBasic) {
+        userBasicService.updateSelective(userBasic);
+        Long id = userBasic.getId();
         return "redirect:/information?id="+id;
     }
 

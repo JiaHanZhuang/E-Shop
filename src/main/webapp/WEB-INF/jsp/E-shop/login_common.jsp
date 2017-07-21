@@ -94,3 +94,30 @@
     </div>
 </div>
 
+
+<!-- 支付输入框 -->
+<div class="modal fade login" id="payCode">
+    <div class="modal-dialog login animated">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">请输入充值金额</h4>
+            </div>
+            <div class="modal-body">
+                <div class="box">
+                    <div class="content">
+                        <div class="error"></div>
+                        <div class="form loginBox">
+                            <form method="post" id="payform" accept-charset="UTF-8"
+                                  action="${pageContext.request.contextPath}/pay" >
+                                <input name="id" type="hidden" value="${user.id}">
+                                <input class="form-control" type="text" placeholder="充值金额" name="money">
+                                <input class="btn btn-default btn-login" type="submit" value="充值" >
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

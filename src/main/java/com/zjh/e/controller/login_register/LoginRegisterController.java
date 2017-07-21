@@ -56,9 +56,8 @@ public class LoginRegisterController {
         if(message!=null){
             return message;
         }
-        //生成账户
-        String userName = UUID.randomUUID().toString();
-        userBasic.setUserName(userName);
+        //默认昵称
+        userBasic.setUserName("e友");
         //将密码加密
         userBasic.setPassword(MD5Util.getMd5(userBasic.getPassword()));
         userBasicService.saveSelect(userBasic);
