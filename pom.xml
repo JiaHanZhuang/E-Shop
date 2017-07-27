@@ -391,6 +391,23 @@
       <version>2.9.0</version>
     </dependency>
     <!--end-->
+    <!--ftp-->
+    <dependency>
+      <groupId>commons-net</groupId>
+      <artifactId>commons-net</artifactId>
+      <version>3.3</version>
+    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>com.jcraft.jsch</groupId>-->
+      <!--<artifactId>com.jcraft.jsch</artifactId>-->
+      <!--<version>0.1.31</version>-->
+    <!--</dependency>-->
+    <dependency>
+      <groupId>com.jcraft.jsch</groupId>
+      <artifactId>com.springsource.com.jcraft.jsch</artifactId>
+      <version>0.1.31</version>
+    </dependency>
+    <!--end-->
 
   </dependencies>
   <build>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjh.e.mapper.ShopActivityMapper">
+    <insert id="saveShopActivity" parameterType="ShopActivity">
+          INSERT INTO shop_activity (activity_id,shop_id) VALUE (#{activityId},#{shopId})
+    </insert>
+
+    <select id="selectShopActivity" parameterType="ShopActivity" resultType="ShopActivity">
+        SELECT id,activity_id,shop_id FROM shop_activity
+          WHERE activity_id = #{activityId} AND shop_id = #{shopId}
+    </select>
+</mapper>

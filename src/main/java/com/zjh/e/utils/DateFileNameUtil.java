@@ -34,4 +34,12 @@ public class DateFileNameUtil {
         return new SimpleDateFormat("yyyy-MM-dd-HH-mm").format(new Date())+"\\"+ UUID.randomUUID()+".png";
     }
 
+//    /**
+//     * 放回富文本中的时间名的文件夹名
+//     */
+//    public static String fileName(){
+//        return new SimpleDateFormat("yyyyMMdd").format(new Date());
+//    }
+
+
 }

@@ -16,6 +16,7 @@
 	<!-- 配置扫描器@Controller -->
 	<context:component-scan base-package="com.zjh.e.controller"/>
 
+
 	<mvc:default-servlet-handler/>
 
 	<mvc:annotation-driven validator="validator" conversion-service="CustomDateConverter"/>

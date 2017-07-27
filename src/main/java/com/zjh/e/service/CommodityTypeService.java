@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface CommodityTypeService extends BaseService<CommodityType> {
 
-     List<CommodityType> selectByExample(long parentId);
+     List<CommodityType> selectByExample(Integer parentId);
 
 }

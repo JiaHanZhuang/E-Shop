@@ -201,7 +201,7 @@
             </div>
             <div>
                 <span class="name-in">昵称　　</span>
-                <input type="text" value="${User.userBasic.userName}" disabled="disabled">
+                <input type="text" value="${User.userBasic.userName}" name="userName">
             </div>
             <div>
                 <span class="word">性别　　</span>

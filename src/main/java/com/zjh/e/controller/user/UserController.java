@@ -104,9 +104,11 @@ public class UserController {
 
 
     @RequestMapping("/updateInformation")
-    public String updateInformation(UserExpand userExpand) {
+    public String updateInformation(UserBasic userBasic,UserExpand userExpand) {
+        userBasicService.updateSelective(userBasic);
+        Long id = userBasic.getId();
+        userExpand.setId(id);
         userExpandService.updateSelective(userExpand);
-        Long id = userExpand.getId();
         return "redirect:/information?id="+id;
     }
 

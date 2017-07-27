@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjh.e.mapper.ShopCommodityMapper">
+    <insert id="saveCommodityAndShop" parameterType="ShopCommodity">
+        INSERT INTO commodity_shop (shop_id,commodity_id) VALUE (#{shopId},#{commodityId})
+    </insert>
+
+    <select id="selectCommodity" parameterType="java.lang.Long" resultType="Commodity">
+        SELECT is_putaway as putaway ,commodity.id,inventory,type,detail FROM commodity
+          JOIN commodity_shop ON commodity.id = commodity_shop.commodity_id
+            WHERE commodity_shop.shop_id = #{userId}
+    </select>
+
+</mapper>

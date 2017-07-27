@@ -18,7 +18,7 @@ public class CommodityTypeServiceImpl extends BaseServiceImpl<CommodityType> imp
     @Autowired
     private CommodityTypeMapper commodityTypeMapper;
 
-    public List<CommodityType> selectByExample( long parentId) {
+    public List<CommodityType> selectByExample( Integer parentId) {
         Example example = new Example(CommodityType.class);
         example.createCriteria().andEqualTo("parentId",parentId);
         return this.commodityTypeMapper.selectByExample(example);

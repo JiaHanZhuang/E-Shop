@@ -239,7 +239,7 @@
         <c:if test="${User.userBasic.shop}">
             <div>
                 <span class="word">进入</span>
-                <a href="#"><button>店铺</button></a>
+                <a href="${pageContext.request.contextPath}/merchant/merchantBackground"><button>店铺后台</button></a>
             </div>
         </c:if>
         <div>

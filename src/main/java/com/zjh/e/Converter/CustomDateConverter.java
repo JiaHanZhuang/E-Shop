@@ -15,6 +15,9 @@ public class CustomDateConverter implements Converter<String,Date> {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try{
+            if("".equals(s)||s==null){
+                return simpleDateFormat.parse(new Date().toString());
+            }
             return simpleDateFormat.parse(s);
         } catch (Exception e){
             e.printStackTrace();
