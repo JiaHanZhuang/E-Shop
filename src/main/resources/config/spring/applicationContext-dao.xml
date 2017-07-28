@@ -7,7 +7,7 @@
         http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
     <!-- 加载配置文件中的内容 -->
-    <context:property-placeholder location="classpath:config/*.properties"/>
+    <context:property-placeholder location="classpath*:config/*.properties"/>
     <!-- 配置数据源 -->
 
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"

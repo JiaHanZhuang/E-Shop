@@ -22,7 +22,7 @@ public class LoginManagerController {
 
 
     @RequestMapping("/skip")
-    public String tiaozhuang () {
+    public String skip() {
         return "manager/manager-login";
     }
 
@@ -34,7 +34,7 @@ public class LoginManagerController {
         //暂时把查询结果存进session
         session.setAttribute("manager",m);
         if (m!=null) {      //判断查询结果是否为空
-            return new MessageUtils("loginManager/managerIndex.action","成功");
+            return new MessageUtils("loginManager/managerIndex","成功");
         } else {
             //为空移除session
             session.removeAttribute("manager");

@@ -16,7 +16,7 @@
 	<!-- 配置扫描器@Controller -->
 	<context:component-scan base-package="com.zjh.e.controller"/>
 
-
+	<context:property-placeholder location="classpath:config/interceptor.properties"/>
 	<mvc:default-servlet-handler/>
 
 	<mvc:annotation-driven validator="validator" conversion-service="CustomDateConverter"/>
@@ -68,5 +68,17 @@
 			</set>
 		</property>
 	</bean>
+
+	<!--配置拦截器-->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.zjh.e.interceptor.LoginInterceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.zjh.e.interceptor.ManagerInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 </beans>
