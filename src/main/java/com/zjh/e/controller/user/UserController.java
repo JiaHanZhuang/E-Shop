@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 import javax.servlet.http.HttpSession;
 
@@ -34,8 +36,12 @@ public class UserController {
     @RequestMapping("/information")
     public ModelAndView selectUser(@RequestParam(required = true) Long id,
                                    ModelAndView modelAndView) {
+        Jedis jedis = JedisPoolUtil.getJedisPoolInstance().getResource();
+        UserBasic userBasic = userBasicService.queryById(id);
+        Integer money = Integer.parseInt(jedis.get(userBasic.getEmail()));
+        userBasic.setMoney(money);
         User user = new User();
-        user.setUserBasic(userBasicService.queryById(id));
+        user.setUserBasic(userBasic);
         user.setUserExpand(userExpandService.queryById(id));
         modelAndView.addObject("User", user);
         modelAndView.setViewName("E-shop/information");
@@ -87,13 +93,13 @@ public class UserController {
     @RequestMapping("/checkIdentifyingCode")
     @ResponseBody
     public MessageUtils checkIdentifyingCode(
-            @RequestParam(required = true) String identifyingCode,HttpSession session) {
+            @RequestParam(required = true) String identifyingCode, HttpSession session) {
         return userService.checkIdentifyingCode(identifyingCode);
     }
 
     @RequestMapping("/updateBySelectUser")
-    public ModelAndView selectUserByUpdate (@RequestParam(required = true) Long id,
-                                            ModelAndView modelAndView) {
+    public ModelAndView selectUserByUpdate(@RequestParam(required = true) Long id,
+                                           ModelAndView modelAndView) {
         User user = new User();
         user.setUserBasic(userBasicService.queryById(id));
         user.setUserExpand(userExpandService.queryById(id));
@@ -104,19 +110,23 @@ public class UserController {
 
 
     @RequestMapping("/updateInformation")
-    public String updateInformation(UserBasic userBasic,UserExpand userExpand) {
+    public String updateInformation(UserBasic userBasic, UserExpand userExpand) {
         userBasicService.updateSelective(userBasic);
         Long id = userBasic.getId();
         userExpand.setId(id);
         userExpandService.updateSelective(userExpand);
-        return "redirect:/information?id="+id;
+        return "redirect:/information?id=" + id;
     }
 
     @RequestMapping("/pay")
     public String pay(UserBasic userBasic) {
-        userBasicService.updateSelective(userBasic);
+        if (userBasic.getMoney() != null) {
+            Jedis jedis = JedisPoolUtil.getJedisPoolInstance().getResource();
+            jedis.set(userBasic.getEmail(), userBasic.getMoney().toString());
+        }
         Long id = userBasic.getId();
-        return "redirect:/information?id="+id;
+        return "redirect:/information?id=" + id;
     }
+
 
 }

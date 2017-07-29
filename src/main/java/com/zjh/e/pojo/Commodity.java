@@ -2,6 +2,7 @@ package com.zjh.e.pojo;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 /**
  * Created by Administrator on 2017/7/7.
@@ -19,8 +20,28 @@ public class Commodity {
     private Integer inventory;      //库存
     @Column(name = "is_putaway")
     private Boolean putaway;     //是否上架
+    @Column(name = "commodity_uuid")
+    private String commodityId;
+    @Transient
+    private String[] paths;
 
     public Commodity() {
+    }
+
+    public String[] getPaths() {
+        return paths;
+    }
+
+    public void setPaths(String[] paths) {
+        this.paths = paths;
+    }
+
+    public String getCommodityId() {
+        return commodityId;
+    }
+
+    public void setCommodityId(String commodityId) {
+        this.commodityId = commodityId;
     }
 
     public Long getId() {

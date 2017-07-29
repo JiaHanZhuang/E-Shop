@@ -1,11 +1,13 @@
 package com.zjh.e.pojo;
 
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Created by Administrator on 2017/7/7.
  * 订单类
  */
+@Table(name = "user_order")
 public class Order {
 
     private Long userId;    //用户id

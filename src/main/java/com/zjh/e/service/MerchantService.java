@@ -29,4 +29,13 @@ public interface MerchantService {
     PageInfo<Commodity> selectCommodity(long id,Integer page,Integer rows);
 
     MessageUtils updataCommodity(Commodity commodity);
+
+    PageInfo<Commodity> selectComodityAll (Integer page,Integer rows);
+
+    PageInfo<Commodity> selectCommodityByType(String type,Integer page,Integer rows);
+
+    PageInfo<Commodity> selectCommodityByCommodity(Long commodityId,Integer page,Integer rows);
+
+    Commodity selectById(Long id);
+
 }

@@ -14,18 +14,28 @@ public class OrderDetail {
     private Date buyTime;       //购买时间
     private String buyNumber;      //订单号
     private Long commodityId;      //商品id
-    private Long addressId;         //地址id
+    private Integer countl;         //购买数量
+    private String size;            //购买的大小
 
     public OrderDetail() {
     }
 
-    public OrderDetail(Long id, Date buyTime, String buyNumber, Long commodityId, Long addressId) {
-        this.id = id;
-        this.buyTime = buyTime;
-        this.buyNumber = buyNumber;
-        this.commodityId = commodityId;
-        this.addressId = addressId;
+    public Integer getCountl() {
+        return countl;
     }
+
+    public void setCountl(Integer countl) {
+        this.countl = countl;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
 
     public Long getId() {
         return id;
@@ -59,11 +69,4 @@ public class OrderDetail {
         this.commodityId = commodityId;
     }
 
-    public Long getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(Long addressId) {
-        this.addressId = addressId;
-    }
 }

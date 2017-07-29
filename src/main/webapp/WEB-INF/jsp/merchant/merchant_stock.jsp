@@ -23,23 +23,14 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
 
     <script type="text/javascript">
-        function join() {
-            var url = "${pageContext.request.contextPath}/merchant/joinActivity";
-            $.post(url, {
-                activityId: $("#activityId").val(),
-                userId:${user.id}
-            }, function (data) {
-                alert(data.message);
-            }, "JSON");
-        }
-
         function addInventory(dataForm) {
             var id = dataForm.id.value;
             var inventory = dataForm.inventory.value;
             var url = "${pageContext.request.contextPath}/merchant/updataCommodity";
             $.post(url, {
                 id: id,
-                inventory: inventory
+                inventory: inventory,
+                commodityId:dataForm.uuid.value
             }, function (data) {
                 alert(data.message);
             }, "JSON");
@@ -131,6 +122,7 @@
                             <c:forEach items="${commoditys.list}" var="commodity">
                                 <form method="post" action="#" id="inventory${commodity.id}">
                                     <input type="hidden" value="${commodity.id}" id="id" name="id">
+                                    <input type="hidden" value="${commodity.commodityId}" id="uuid" name="commodityId">
                                     <tr>
                                         <td>${commodity.id}</td>
                                         <td>${commodity.detail}</td>
@@ -155,24 +147,24 @@
                             </tbody>
                         </table>
                         <c:if test="${! commoditys.isFirstPage}">
-                            <a href="${pageContext.request.contextPath}/merchant/selectMerchantStock">首页</a>
+                            <a href="${pageContext.request.contextPath}/merchant/selectMerchantStock?id=${user.id}">首页</a>
                         </c:if>
 
                         <c:if test="${commoditys.hasPreviousPage}">
-                            <a href="${pageContext.request.contextPath}/merchant/selectMerchantStock?page=${commoditys.prePage}">上一页</a>
+                            <a href="${pageContext.request.contextPath}/merchant/selectMerchantStock?page=${commoditys.prePage}&id=${user.id}">上一页</a>
                         </c:if>
 
                         <c:forEach begin="${commoditys.pageNum}" end="${commoditys.pages}" var="i">
                             <c:if test="${commoditys.pageNum<=commoditys.pages}">
-                                <a href="${pageContext.request.contextPath}/merchant/selectMerchantStock?page=${i}">${i}</a>
+                                <a href="${pageContext.request.contextPath}/merchant/selectMerchantStock?page=${i}&id=${user.id}">${i}</a>
                             </c:if>
                         </c:forEach>
 
                         <c:if test="${commoditys.hasNextPage}">
-                            <a href="${pageContext.request.contextPath}/merchant/selectMerchantStock?page=${commoditys.nextPage}">下一页</a>
+                            <a href="${pageContext.request.contextPath}/merchant/selectMerchantStock?page=${commoditys.nextPage}&id=${user.id}">下一页</a>
                         </c:if>
                         <c:if test="${! commoditys.isLastPage}">
-                            <a href="${pageContext.request.contextPath}/merchant/selectMerchantStock?page=${commoditys.lastPage}">末页</a>
+                            <a href="${pageContext.request.contextPath}/merchant/selectMerchantStock?page=${commoditys.lastPage}&id=${user.id}">末页</a>
                         </c:if>
                     </div>
                 </div>

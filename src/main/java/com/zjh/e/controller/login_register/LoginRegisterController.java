@@ -1,8 +1,11 @@
 package com.zjh.e.controller.login_register;
 
+import com.github.pagehelper.PageInfo;
+import com.zjh.e.pojo.Commodity;
 import com.zjh.e.pojo.User;
 import com.zjh.e.pojo.UserBasic;
 import com.zjh.e.pojo.UserExpand;
+import com.zjh.e.service.MerchantService;
 import com.zjh.e.service.UserBasicService;
 import com.zjh.e.service.UserExpandService;
 import com.zjh.e.utils.EMailUtils;
@@ -15,7 +18,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -33,6 +38,9 @@ public class LoginRegisterController {
     private UserBasicService userBasicService;
     @Autowired
     private UserExpandService userExpandService;
+    @Autowired
+    private MerchantService merchantService;
+
 
     @RequestMapping("/register")
     public String register() {
@@ -40,8 +48,13 @@ public class LoginRegisterController {
     }
 
     @RequestMapping("/homePage")
-    public String success() {
-        return "E-shop/homePage";
+    public ModelAndView homePage(ModelAndView modelAndView,
+                           @RequestParam(required = false,defaultValue = "1")Integer page,
+                           @RequestParam(required = false,defaultValue = "4")Integer rows) {
+        PageInfo<Commodity> pageInfo = merchantService.selectComodityAll(page,rows);
+        modelAndView.addObject("commoditys",pageInfo);
+        modelAndView.setViewName("E-shop/homePage");
+        return modelAndView;
     }
 
     @RequestMapping("/creatUser")

@@ -9,6 +9,7 @@ import com.zjh.e.utils.MessageUtils;
 import com.zjh.e.utils.PhoneUtil;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 /**
  * Created by Administrator on 2017/7/21.
@@ -71,4 +72,7 @@ public class UserServiceImpl implements UserService {
             return new MessageUtils(null,"验证码已过期");
         }
     }
+
+
+
 }

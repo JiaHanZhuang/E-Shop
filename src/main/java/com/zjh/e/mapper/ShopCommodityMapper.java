@@ -13,4 +13,10 @@ public interface ShopCommodityMapper {
     void saveCommodityAndShop(ShopCommodity shopCommodity);
 
     List<Commodity> selectCommodity (Long userId);
+
+    Long selectShopId(Long commodityId);
+
+    List<Commodity> selectCommodityByType (String type);
+
+    List<Commodity> selectCommodityByShopId(Long shopId);
 }

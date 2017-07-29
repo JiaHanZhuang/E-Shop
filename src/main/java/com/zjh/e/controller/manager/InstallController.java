@@ -28,20 +28,19 @@ public class InstallController {
             installService.save(new CommodityType(3,"男装",1,false));
             installService.save(new CommodityType(4,"童装",1,false));
             //数码电子
-            installService.save(new CommodityType(5,"数码电子",0,true));
-            installService.save(new CommodityType(6,"日常",5,false));
-            installService.save(new CommodityType(7,"娱乐",5,false));
+            installService.save(new CommodityType(5,"数码电子类",0,true));
+            installService.save(new CommodityType(6,"数码电子",5,false));
             //电子硬件
-            installService.save(new CommodityType(8,"电子硬件",0,true));
-            installService.save(new CommodityType(9,"台式电脑硬件",8,false));
-            installService.save(new CommodityType(10,"笔记本电脑硬件",8,false));
-            installService.save(new CommodityType(11,"手机硬件",8,false));
+            installService.save(new CommodityType(7,"电子硬件",0,true));
+            installService.save(new CommodityType(8,"台式电脑硬件",7,false));
+            installService.save(new CommodityType(9,"笔记本电脑硬件",7,false));
+            installService.save(new CommodityType(10,"手机硬件",7,false));
             //食物
-            installService.save(new CommodityType(12,"食物",0,true));
-            installService.save(new CommodityType(13,"补品",12,false));
-            installService.save(new CommodityType(14,"蔬菜水果",12,false));
-            installService.save(new CommodityType(15,"零食",12,false));
-            installService.save(new CommodityType(16,"主食",12,false));
+            installService.save(new CommodityType(11,"食物",0,true));
+            installService.save(new CommodityType(12,"补品",11,false));
+            installService.save(new CommodityType(13,"蔬菜水果",11,false));
+            installService.save(new CommodityType(14,"零食",11,false));
+            installService.save(new CommodityType(15,"主食",11,false));
             return new MessageUtils(null,"安装成功");
         }catch (Exception e){
             return new MessageUtils(null,"安装失败");

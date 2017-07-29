@@ -6,6 +6,7 @@ import com.zjh.e.pojo.Commodity;
 import com.zjh.e.pojo.CommodityType;
 import com.zjh.e.service.CommodityTypeService;
 import com.zjh.e.service.MerchantService;
+import com.zjh.e.utils.JedisPoolUtil;
 import com.zjh.e.utils.MessageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import redis.clients.jedis.Jedis;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -81,7 +83,7 @@ public class MerchantController {
 
     @RequestMapping("/selectMerchantStock")
     public ModelAndView selectMerchantStock(ModelAndView modelAndView,long id,
-                                 @RequestParam(defaultValue="0",required = false)Integer page,
+                                 @RequestParam(defaultValue="1",required = false)Integer page,
                                  @RequestParam(defaultValue = "5",required = false)Integer rows) {
         PageInfo<Commodity> pageInfo = merchantService.selectCommodity(id,page,rows);
         modelAndView.addObject("commoditys",pageInfo);
@@ -98,7 +100,7 @@ public class MerchantController {
     @RequestMapping("/selectMerchantPutaway")
     @ResponseBody
     public ModelAndView selectMerchantPutaway(ModelAndView modelAndView,long id,
-                                              @RequestParam(defaultValue="0",required = false)Integer page,
+                                              @RequestParam(defaultValue="1",required = false)Integer page,
                                               @RequestParam(defaultValue = "5",required = false)Integer rows) {
         PageInfo<Commodity> pageInfo = merchantService.selectCommodity(id,page,rows);
         modelAndView.addObject("commoditys",pageInfo);

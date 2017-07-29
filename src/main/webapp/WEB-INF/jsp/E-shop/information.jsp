@@ -140,19 +140,19 @@
                     <li class="active"><a href="${pageContext.request.contextPath}/homePage"><i> </i>首页</a></li>
                     <li><a href="#">食物&&服装</a>
                         <ul class="drop">
-                            <li><a href="#">童装</a></li>
-                            <li><a href="#">女装</a></li>
-                            <li><a href="#">男装</a></li>
-                            <li><a href="#">补品</a></li>
-                            <li><a href="#">蔬菜水果</a></li>
-                            <li><a href="#">零食</a></li>
-                            <li><a href="#">主食</a></li>
+                            <li><a href="${pageContext.request.contextPath}/shopping?type=child">童装</a></li>
+                            <li><a href="${pageContext.request.contextPath}/shopping?type=woman">女装</a></li>
+                            <li><a href="${pageContext.request.contextPath}/shopping?type=man">男装</a></li>
+                            <li><a href="${pageContext.request.contextPath}/shopping?type=tonic">补品</a></li>
+                            <li><a href="${pageContext.request.contextPath}/shopping?type=fruits">蔬菜水果</a></li>
+                            <li><a href="${pageContext.request.contextPath}/shopping?type=snacks">零食</a></li>
+                            <li><a href="${pageContext.request.contextPath}/shopping?type=food">主食</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">台式电脑</a></li>
-                    <li><a href="#">笔记本电脑</a></li>
-                    <li><a href="#">手机硬件</a></li>
-                    <li><a href="#">数码电子</a></li>
+                    <li><a href="${pageContext.request.contextPath}/shopping?type=desktop">台式电脑</a></li>
+                    <li><a href="${pageContext.request.contextPath}/shopping?type=laptop">笔记本电脑</a></li>
+                    <li><a href="${pageContext.request.contextPath}/shopping?type=phone">手机硬件</a></li>
+                    <li><a href="${pageContext.request.contextPath}/shopping?type=electronic">数码电子</a></li>
                     <li><a href="#">联系我们</a></li>
 
                 </ul>
@@ -170,7 +170,6 @@
                         <select class="in-drop">
                             <option value="Dollars" class="in-of">名称</option>
                             <option value="Euro" class="in-of">类型</option>
-                            <option value="Yen" class="in-of">店名</option>
                         </select>
                     </div>
                     <div class="search">
@@ -281,7 +280,7 @@
                 <h6>客户服务</h6>
                 <ul>
                     <li><a href="#">联系我们</a></li>
-                    <li><a href="#">地图</a></li>
+                    <li><a href="${pageContext.request.contextPath}/map">地图</a></li>
                 </ul>
             </div>
             <div class="footer-middle-in">

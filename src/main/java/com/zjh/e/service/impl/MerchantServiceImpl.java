@@ -6,12 +6,14 @@ import com.zjh.e.mapper.*;
 import com.zjh.e.pojo.*;
 import com.zjh.e.service.MerchantService;
 import com.zjh.e.utils.FtpUtil;
+import com.zjh.e.utils.JedisPoolUtil;
 import com.zjh.e.utils.MessageUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import redis.clients.jedis.Jedis;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,6 +47,7 @@ public class MerchantServiceImpl implements MerchantService {
     private Integer FTP_PORT;
     @Value("${FTP_USERNAME}")
     private String FTP_USERNAME;
+
 
     private static final String PATH = "D:\\IdeaProject\\E-shop\\target\\E-shop\\images\\";
     private static final String LINUXPATH = "D:/IdeaProject/E-shop/target/E-shop/images/";
@@ -95,10 +98,6 @@ public class MerchantServiceImpl implements MerchantService {
                     fileNames[i] = fileName;
                     ftpUtil.upload(path + files[i].getName(), fileName, null);
                 }
-//            //定义服务器的文件夹名
-//            String serverFile = UUID.randomUUID().toString();
-//            //上传
-//            ftpUtil.upload(path,userBasic.getEmail(),serverFile);
                 //2,把ftp的路径存入commodity类
                 //将ftp指定目录下的所有图片名字读取，并组成String存入数据库
                 StringBuffer sb = new StringBuffer();
@@ -113,6 +112,15 @@ public class MerchantServiceImpl implements MerchantService {
                 file.delete();
 
                 //4,将commodity所有的信息存入数据库
+                //4.1讲库存存入redis
+                //生成唯一的商品标识符，并作为redis的库存的key
+                Jedis jedis = JedisPoolUtil.getJedisPoolInstance().getResource();
+                String commodityUUID = UUID.randomUUID().toString();
+                jedis.set(commodityUUID,commodity.getInventory().toString());
+                //存入commodity实体类中
+                commodity.setCommodityId(commodityUUID);
+                //清空commodity实体类中的库存
+                commodity.setInventory(null);
                 commodityMapper.insertSelective(commodity);
                 //5,建立商家用户和商品的关系
                 //5.1,查询id
@@ -122,7 +130,7 @@ public class MerchantServiceImpl implements MerchantService {
                 //5.3,存储
                 shopCommodityMapper.saveCommodityAndShop(shopCommodity);
                 //6,返回地址
-                return new MessageUtils("/merchant/merchantBackground", null);
+                return new MessageUtils("/merchant/addCommodityAction", "添加成功");
             }
             return new MessageUtils(null, "连接服服务器失败，图片无法上传");
         }
@@ -172,16 +180,74 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Override
     public PageInfo<Commodity> selectCommodity(long id, Integer page, Integer rows) {
-        List<Commodity> commodities = shopCommodityMapper.selectCommodity(id);
         PageHelper.startPage(page, rows);
+        List<Commodity> commodities = shopCommodityMapper.selectCommodity(id);
+        Jedis jedis = JedisPoolUtil.getJedisPoolInstance().getResource();
+        for (Commodity commodity : commodities) {
+            //获取库存
+            Integer inventory = Integer.parseInt(jedis.get(commodity.getCommodityId()));
+            commodity.setInventory(inventory);
+        }
         return new PageInfo<Commodity>(commodities);
     }
 
     @Override
     public MessageUtils updataCommodity(Commodity commodity) {
+        if(commodity.getInventory()!=null) {
+            Jedis jedis = JedisPoolUtil.getJedisPoolInstance().getResource();
+            jedis.set(commodity.getCommodityId(),commodity.getInventory().toString());
+            commodity.setInventory(null);
+        }
         commodityMapper.updateByPrimaryKeySelective(commodity);
         return new MessageUtils(null, "修改成功");
     }
+
+    @Override
+    public PageInfo<Commodity> selectComodityAll(Integer page, Integer rows) {
+        PageHelper.startPage(page,rows);
+        Example example = new Example(Commodity.class);
+        example.createCriteria().andEqualTo("putaway",1);
+        //取出所有的商品信息
+        List<Commodity> commodities = commodityMapper.selectByExample(example);
+        //循环
+        commodities = pathInventoryHandle(commodities);
+        return new PageInfo<Commodity>(commodities);
+    }
+
+    @Override
+    public PageInfo<Commodity> selectCommodityByType(String type, Integer page, Integer rows) {
+        PageHelper.startPage(page,rows);
+        type = this.fitType(type);
+        List<Commodity> commodities = shopCommodityMapper.selectCommodityByType(type);
+        //循环
+        commodities = pathInventoryHandle(commodities);
+        return new PageInfo<Commodity>(commodities);
+    }
+
+    @Override
+    public PageInfo<Commodity> selectCommodityByCommodity(Long commodityId, Integer page, Integer rows) {
+        Long shopId = shopCommodityMapper.selectShopId(commodityId);
+        PageHelper.startPage(page,rows);
+        List<Commodity> commodities = shopCommodityMapper.selectCommodityByShopId(shopId);
+        //循环
+        commodities = pathInventoryHandle(commodities);
+        return new PageInfo<Commodity>(commodities);
+    }
+
+    @Override
+    public Commodity selectById(Long id) {
+        Jedis jedis = JedisPoolUtil.getJedisPoolInstance().getResource();
+        Commodity commodity = commodityMapper.selectByPrimaryKey(id);
+        String[] paths;
+        String path = commodity.getPath();
+        paths = path.split(",");
+        commodity.setPaths(paths);
+        //获取库存
+        Integer inventory = Integer.parseInt(jedis.get(commodity.getCommodityId()));
+        commodity.setInventory(inventory);
+        return commodity;
+    }
+
 
     //下面是我的两个方法，取的uuidname防止文件同名问题
     private String getExtName(String s, char split) {
@@ -195,5 +261,39 @@ public class MerchantServiceImpl implements MerchantService {
         StringBuilder sb = new StringBuilder(100);
         sb.append(uuid.toString()).append(".").append(this.getExtName(fileName, '.'));
         return sb.toString();
+    }
+
+    private String fitType(String type) {
+        switch (type) {
+            case "child"  : { type = "童装"; break; }
+            case "woman"  : { type = "女装"; break; }
+            case "man"    : { type = "男装"; break; }
+            case "tonic"  : { type = "补品"; break; }
+            case "fruits" : { type = "蔬菜水果"; break; }
+            case "snacks" : { type = "零食"; break; }
+            case "food"   : { type = "主食"; break; }
+            case "desktop": { type = "台式电脑硬件"; break; }
+            case "laptop" : { type = "笔记本电脑硬件"; break; }
+            case "phone"   : { type = "手机硬件"; break; }
+            case "electronic" : { type = "数码电子"; }
+        }
+        return type;
+    }
+
+    private List<Commodity> pathInventoryHandle (List<Commodity> commodities) {
+        Jedis jedis = JedisPoolUtil.getJedisPoolInstance().getResource();
+        String[] paths;
+        for(Commodity commodity : commodities ) {
+            //获取路径字符串
+            String path = commodity.getPath();
+            //多图路径时，按“,”拆分
+            paths = path.split(",");
+            //存储
+            commodity.setPaths(paths);
+            //获取库存
+            Integer inventory = Integer.parseInt(jedis.get(commodity.getCommodityId()));
+            commodity.setInventory(inventory);
+        }
+        return  commodities;
     }
 }

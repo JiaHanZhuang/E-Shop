@@ -7,10 +7,26 @@
         INSERT INTO commodity_shop (shop_id,commodity_id) VALUE (#{shopId},#{commodityId})
     </insert>
 
+    <select id="selectCommodityByType" parameterType="java.lang.String" resultType="Commodity">
+        SELECT id,detail,path,price,commodity_uuid as commodityId FROM commodity
+        WHERE type = #{type} AND is_putaway = 1
+    </select>
+
     <select id="selectCommodity" parameterType="java.lang.Long" resultType="Commodity">
-        SELECT is_putaway as putaway ,commodity.id,inventory,type,detail FROM commodity
+        SELECT is_putaway as putaway ,commodity.id,type,detail,commodity_uuid as commodityId FROM commodity
           JOIN commodity_shop ON commodity.id = commodity_shop.commodity_id
             WHERE commodity_shop.shop_id = #{userId}
+    </select>
+
+    <select id="selectShopId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        SELECT shop_id FROM commodity_shop WHERE commodity_id = #{commodityId}
+    </select>
+
+    <select id="selectCommodityByShopId" parameterType="java.lang.Long" resultType="Commodity">
+        SELECT commodity.id,detail,path,price,commodity_uuid as commodityId FROM commodity_shop
+        left join commodity on
+        commodity_shop.commodity_id = commodity.id
+        where shop_id = #{shopId} AND commodity.is_putaway = 1
     </select>
 
 </mapper>

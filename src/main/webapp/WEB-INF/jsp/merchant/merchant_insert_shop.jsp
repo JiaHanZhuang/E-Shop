@@ -42,7 +42,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">退回首页</a></li>
+                    <li><a href="${pageContext.request.contextPath}/homePage">退回首页</a></li>
                 </ul>
             </div>
 
@@ -194,6 +194,7 @@
                 if(data.url==null) {
                     alert(data.message);
                 } else {
+                    alert(data.message);
                     window.location.href = "${pageContext.request.contextPath}"+data.url;
                 }
             }

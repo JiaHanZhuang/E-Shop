@@ -111,6 +111,7 @@
                             <form method="post" id="payform" accept-charset="UTF-8"
                                   action="${pageContext.request.contextPath}/pay" >
                                 <input name="id" type="hidden" value="${user.id}">
+                                <input name="email" type="hidden" value="${user.email}">
                                 <input class="form-control" type="text" placeholder="充值金额" name="money">
                                 <input class="btn btn-default btn-login" type="submit" value="充值" >
                             </form>
