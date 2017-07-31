@@ -9,6 +9,7 @@ import com.zjh.e.service.MerchantService;
 import com.zjh.e.service.UserBasicService;
 import com.zjh.e.service.UserExpandService;
 import com.zjh.e.utils.EMailUtils;
+import com.zjh.e.utils.JedisPoolUtil;
 import com.zjh.e.utils.MD5Util;
 import com.zjh.e.utils.MessageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import redis.clients.jedis.Jedis;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -69,6 +71,9 @@ public class LoginRegisterController {
         if(message!=null){
             return message;
         }
+        //在redis中加入其账户余额,默认为0
+        Jedis jedis = JedisPoolUtil.getJedisPoolInstance().getResource();
+        jedis.set(userBasic.getEmail(),"0");
         //默认昵称
         userBasic.setUserName("e友");
         //将密码加密
@@ -127,7 +132,7 @@ public class LoginRegisterController {
         String MD5password = MD5Util.getMd5(userBasic.getPassword());
         //将密码从实体中取出，进行账号的查询
         userBasic.setPassword(null);
-        //按密码和邮箱进行用户搜索
+        //按邮箱进行用户搜索
         UserBasic user = userBasicService.queryOne(userBasic);
         //判断是否有此用户
         if(user==null){

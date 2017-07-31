@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjh.e.mapper.BuyMapper">
+        <resultMap id="OrderAndCommodity" type="com.zjh.e.pojo.OrderAndCommodity">
+            <association property="orderDetail" javaType="com.zjh.e.pojo.OrderDetail">
+                <id column="id" property="id"/>
+                <result column="buy_number" property="buyNumber"/>
+                <result column="count" property="count"/>
+                <result column="size" property="size"/>
+            </association>
+            <association property="commodity" javaType="com.zjh.e.pojo.Commodity">
+                <id column="cid" property="id"/>
+                <result column="color" property="color"/>
+                <result column="type" property="type"/>
+                <result column="detail" property="detail"/>
+                <result column="price" property="price"/>
+                <result column="commodity_uuid" property="commodityId"/>
+            </association>
+        </resultMap>
+
+
+    <select id="selectOrderAndCommodity" parameterType="java.lang.String" resultMap="OrderAndCommodity">
+        SELECT
+          order_detail.id,
+          buy_number,
+          count,
+          size,
+          commodity.id as cid,
+          color,
+          type,
+          detail,
+          price,
+          commodity_uuid
+        FROM order_detail
+        JOIN user_order ON order_detail_id = order_detail.id
+        JOIN commodity ON commodity_id = commodity.id
+        where buy_number = #{buyNumber}
+    </select>
+
+    <select id="selectEmailByCommoidtyId" parameterType="java.lang.Long" resultType="java.lang.String">
+        SELECT
+        email
+        FROM user_basic LEFT JOIN commodity_shop
+        ON user_basic.id = shop_id
+        where commodity_id = #{itemId}
+    </select>
+
+    <select id="selectPriceByCommodityId" parameterType="java.lang.Long" resultType="java.lang.Integer">
+        SELECT price FROM commodity where id = #{itemId}
+    </select>
+
+</mapper>

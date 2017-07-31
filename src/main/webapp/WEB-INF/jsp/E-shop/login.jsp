@@ -24,32 +24,26 @@
     <script src="${pageContext.request.contextPath}/resources/login/js/login-register.js" type="text/javascript"></script>
 
     <script type="text/javascript">
-        function loginAjax(loginform) {
-            if(loginform.username.value==""){       //验证用户名是否为空
-                alert("请输入用户名！");
-                loginform.username.focus();
+        function login(loginform){
+            if(loginform.email.value==""){
+                alert("请输入邮箱！");
+                loginform.email.focus();
                 return false;
             }
-            if(loginform.password.value==""){       //验证密码是否为空
+            if(loginform.password.value==""){
                 alert("请输入密码！");
                 loginform.password.focus();
                 return false;
             }
-            var username = loginform.username.value;
-            var password = loginform.password.value;
-            var url = "${pageContext.request.contextPath}/login";
+            var url = "${pageContext.request.contextPath}/login"
             $.post(url,{
-                name:username,
-                password:password
-            },function(data){
-                var path = data.url;
-                if(path==null) {
-                    alert("您输入的用户名或密码有错！");
-                    loginform.username.focus();
-                    return false;
+                email:loginform.email.value,
+                password:loginform.password.value
+            },function (data) {
+                if(data.url==null){
+                    alert(data.message);
                 } else {
-                    //跳转到页面去
-                    window.location.href = "${pageContext.request.contextPath}"+path;
+                    window.location.href = "${pageContext.request.contextPath}"+data.url;
                 }
             },"JSON");
         }
@@ -79,10 +73,10 @@
                         <div class="content">
                             <div class="error"></div>
                             <div class="form loginBox">
-                                <form method="post" action="#" accept-charset="UTF-8">
-                                    <input  class="form-control" type="text" placeholder="账号" name="username">
-                                    <input  class="form-control" type="password" placeholder="密码" name="password">
-                                    <input class="btn btn-default btn-login" type="button" value="登录" onclick="loginAjax(this.form)">
+                                <form method="post" action="#" accept-charset="UTF-8" id="loginform">
+                                    <input  class="form-control" type="text" placeholder="账号" name="email" id="email">
+                                    <input  class="form-control" type="password" placeholder="密码" name="password" id="password">
+                                    <input class="btn btn-default btn-login" type="button" value="登录" onclick="login(this.form)">
                                 </form>
                             </div>
                         </div>

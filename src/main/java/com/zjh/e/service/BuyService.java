@@ -1,5 +1,7 @@
 package com.zjh.e.service;
 
+import com.zjh.e.pojo.Commodity;
+import com.zjh.e.pojo.OrderAndCommodity;
 import com.zjh.e.pojo.OrderDetail;
 import com.zjh.e.utils.MessageUtils;
 
@@ -8,6 +10,10 @@ import com.zjh.e.utils.MessageUtils;
  */
 public interface BuyService {
 
-    MessageUtils buyCommodity(Long userId, Long commodityId, OrderDetail orderDetail);
+    String createOrder(Long userId,Long itemId,OrderDetail orderDetail);
+
+    OrderAndCommodity selectOrderAndCommodity (String buyNumber);
+
+    MessageUtils buyCommodity(OrderDetail orderDetail, String customerEmail, Commodity commodity);
 
 }

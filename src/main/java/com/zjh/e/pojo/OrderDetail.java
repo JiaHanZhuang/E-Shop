@@ -14,18 +14,18 @@ public class OrderDetail {
     private Date buyTime;       //购买时间
     private String buyNumber;      //订单号
     private Long commodityId;      //商品id
-    private Integer countl;         //购买数量
+    private Integer count;         //购买数量
     private String size;            //购买的大小
 
     public OrderDetail() {
     }
 
-    public Integer getCountl() {
-        return countl;
+    public Integer getCount() {
+        return count;
     }
 
-    public void setCountl(Integer countl) {
-        this.countl = countl;
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
     public String getSize() {
