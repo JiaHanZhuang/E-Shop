@@ -9,6 +9,7 @@
 <%@ page isELIgnored="false" %>
 <html>
 <head>
+    <title>E-shop</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 

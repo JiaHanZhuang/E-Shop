@@ -48,4 +48,22 @@
         },"JSON");
     }
 
+    function addShopCat(temp) {
+        var itemId = temp.itemId.value;
+        var url = "${pageContext.request.contextPath}/shoppingCart/add";
+        if(${user.id == null}) {
+            window.location.href="${pageContext.request.contextPath}/loginSkip";
+        } else {
+            $.ajax({
+                type: "GET",
+                url: url,
+                data:{"itemId":itemId},
+                dataType: "json",
+                success:function (data) {
+                    alert(data.message);
+                }
+            });
+        }
+    }
+
 </script>

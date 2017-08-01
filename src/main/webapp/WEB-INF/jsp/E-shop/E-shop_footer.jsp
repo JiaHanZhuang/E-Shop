@@ -48,7 +48,7 @@
                 <h6>账户</h6>
                 <ul>
                     <li><a href="#" onclick="checkUserIsLogin()">我的账户</a></li>
-                    <li><a href="#">订单历史</a></li>
+                    <li><a href="${pageContext.request.contextPath}/buy/selectBill">订单历史</a></li>
                 </ul>
             </div>
             <div class="clearfix"></div>

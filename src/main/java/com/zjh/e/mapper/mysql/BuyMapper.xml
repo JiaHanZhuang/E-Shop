@@ -3,12 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zjh.e.mapper.BuyMapper">
-        <resultMap id="OrderAndCommodity" type="com.zjh.e.pojo.OrderAndCommodity">
+        <resultMap id="OrderAndCommodityMap" type="com.zjh.e.pojo.OrderAndCommodity">
+            <id column="id" property="id"/>
             <association property="orderDetail" javaType="com.zjh.e.pojo.OrderDetail">
                 <id column="id" property="id"/>
                 <result column="buy_number" property="buyNumber"/>
                 <result column="count" property="count"/>
                 <result column="size" property="size"/>
+                <result column="buy_time" property="buyTime"/>
             </association>
             <association property="commodity" javaType="com.zjh.e.pojo.Commodity">
                 <id column="cid" property="id"/>
@@ -21,7 +23,7 @@
         </resultMap>
 
 
-    <select id="selectOrderAndCommodity" parameterType="java.lang.String" resultMap="OrderAndCommodity">
+    <select id="selectOrderAndCommodity" parameterType="java.lang.String" resultMap="OrderAndCommodityMap">
         SELECT
           order_detail.id,
           buy_number,
@@ -49,6 +51,44 @@
 
     <select id="selectPriceByCommodityId" parameterType="java.lang.Long" resultType="java.lang.Integer">
         SELECT price FROM commodity where id = #{itemId}
+    </select>
+
+    <select id="selectBill" parameterType="java.lang.Long" resultMap="OrderAndCommodityMap">
+      SELECT
+          order_detail.id,
+          buy_number,
+          count,
+          size,
+          commodity.id as cid,
+          color,
+          type,
+          detail,
+          price,
+          buy_time
+      FROM order_detail LEFT JOIN user_order
+      ON order_detail_id = order_detail.id
+      LEFT JOIN commodity
+      ON commodity.id = commodity_id
+      where user_id = #{userId} and buy_time != ""
+    </select>
+
+    <select id="selectShopCat" parameterType="java.lang.Long" resultMap="OrderAndCommodityMap">
+      SELECT
+          order_detail.id,
+          buy_number,
+          count,
+          size,
+          commodity.id as cid,
+          color,
+          type,
+          detail,
+          price
+      FROM order_detail LEFT JOIN user_order
+      ON order_detail_id = order_detail.id
+      LEFT JOIN commodity
+      ON commodity.id = commodity_id
+      where user_id = #{userId} and isNull(buy_time)
+      ORDER BY order_detail.id DESC
     </select>
 
 </mapper>

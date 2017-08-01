@@ -1,5 +1,7 @@
 package com.zjh.e.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zjh.e.mapper.*;
 import com.zjh.e.pojo.*;
 import com.zjh.e.service.BuyService;
@@ -8,8 +10,10 @@ import com.zjh.e.utils.MessageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -30,6 +34,8 @@ public class BuyServiceImpl implements BuyService {
     private UserOrderMapper userOrderMapper;
     @Autowired
     private BuyMapper buyMapper;
+    @Autowired
+    private OrderMapper orderMapper;
 
 //    public String buyCommodity(Long userId, Long commodityId, OrderDetail orderDetail) {
 //        Jedis jedis = JedisPoolUtil.getJedisPoolInstance().getResource();
@@ -88,7 +94,7 @@ public class BuyServiceImpl implements BuyService {
         orderDetail.setBuyNumber(buyNumber); //设置订单id
         orderDetail.setCommodityId(itemId);       //设置商品id
         //存储
-        orderDetailMapper.insert(orderDetail);
+        orderDetailMapper.insertSelective(orderDetail);
         Long orderDatailId = orderDetailMapper.selectOne(orderDetail).getId();
         //设置订单
         Order order = new Order();
@@ -145,6 +151,28 @@ public class BuyServiceImpl implements BuyService {
             jedis.decrBy(commodity.getCommodityId(), count);
             return new MessageUtils("/homePage","购买成功");
         }
+    }
+
+    @Override
+    public PageInfo<OrderAndCommodity> selectBill(Long userId, Integer page, Integer rows) {
+        PageHelper.startPage(page,rows);
+        List<OrderAndCommodity> list = buyMapper.selectBill(userId);
+        return new PageInfo<OrderAndCommodity>(list);
+    }
+
+    @Override
+    public PageInfo<OrderAndCommodity> selectShopCat(Long userId, Integer page, Integer rows) {
+        PageHelper.startPage(page,rows);
+        List<OrderAndCommodity> list = buyMapper.selectShopCat(userId);
+        return new PageInfo<OrderAndCommodity>(list);
+    }
+
+    @Override
+    public void deleteOrder(Long orderDetailId) {
+        Example example = new Example(Order.class);
+        example.createCriteria().andEqualTo("orderDetailId",orderDetailId);
+        orderMapper.deleteByExample(example);
+        orderDetailMapper.deleteByPrimaryKey(orderDetailId);
     }
 
 }

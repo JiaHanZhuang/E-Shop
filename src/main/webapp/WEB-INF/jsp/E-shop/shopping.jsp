@@ -55,7 +55,11 @@
                         <div class="top-content">
                             <h5><a href="#">${commodity.detail}</a></h5>
                             <div class="white">
-                                <a href="#" class="hvr-shutter-in-vertical hvr-shutter-in-vertical2">添加购物车</a>
+                                <form action="#" method="post" id="tempForm">
+                                    <input type="hidden" id="itemId" value="${commodity.id}" name="itemId">
+                                    <input type="button" onclick="addShopCat(this.form)"
+                                           class="hvr-shutter-in-vertical hvr-shutter-in-vertical2 " value="加入购物车">
+                                </form>
                                 <p class="dollar"><span class="in-dollar">$</span><span>${commodity.price}</span></p>
                                 <div class="clearfix"></div>
                             </div>
@@ -77,17 +81,17 @@
                         href="${pageContext.request.contextPath}/shopping?page=${commodities.nextPage}&type=${type}">${commodities.pageNum +1}</a>
                 </li>
             </c:if>
-            <c:if test="${commodities.pageNum +2 < commodities.pages}">
+            <c:if test="${commodities.pageNum +2 <= commodities.pages}">
                 <li class="arrow"><a
                         href="${pageContext.request.contextPath}/shopping?page=${commodities.pageNum +2}&type=${type}">${commodities.pageNum +2}</a>
                 </li>
             </c:if>
-            <c:if test="${commodities.pageNum +3 < commodities.pages}">
+            <c:if test="${commodities.pageNum +3 <= commodities.pages}">
                 <li class="arrow"><a
                         href="${pageContext.request.contextPath}/shopping?page=${commodities.pageNum +3}&type=${type}">${commodities.pageNum +3}</a>
                 </li>
             </c:if>
-            <c:if test="${commodities.pageNum +4 < commodities.pages}">
+            <c:if test="${commodities.pageNum +4 <= commodities.pages}">
                 <li class="arrow"><a
                         href="${pageContext.request.contextPath}/shopping?page=${commodities.pageNum +4}&type=${type}">${commodities.pageNum +1}</a>
                 </li>

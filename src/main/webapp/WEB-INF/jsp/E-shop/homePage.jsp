@@ -61,8 +61,11 @@
                             <div class="top-content">
                                 <h5><a href="#">${commodity.detail}</a></h5>
                                 <div class="white">
-                                    <a href="#"
-                                       class="hvr-shutter-in-vertical hvr-shutter-in-vertical2 ">加入购物车</a>
+                                    <form action="#" method="post" id="tempForm">
+                                        <input type="hidden" id="itemId" value="${commodity.id}" name="itemId">
+                                        <input type="button" onclick="addShopCat(this.form)"
+                                               class="hvr-shutter-in-vertical hvr-shutter-in-vertical2 " value="加入购物车">
+                                    </form>
                                     <p class="dollar"><span class="in-dollar">$</span><span>${commodity.price}</span>
                                     </p>
                                     <div class="clearfix"></div>
@@ -130,14 +133,17 @@
                                    class="compare-in "><img src="http://39.108.4.2/${commodity.paths[0]}"
                                                             alt="" height="177" width="204"/>
                                     <div class="compare in-compare">
-                                        <span>添加到购物车</span>
                                         <span>查看详情</span>
                                     </div>
                                 </a>
                                 <div class="top-content bag">
                                     <h5><a href="#">${commodity.detail}</a></h5>
                                     <div class="white">
-                                        <a href="#" class="hvr-shutter-in-vertical hvr-shutter-in-vertical2">添加到购物车</a>
+                                        <form action="#" method="post" id="tempForm">
+                                            <input type="hidden" id="itemId" value="${commodity.id}" name="itemId">
+                                            <input type="button" onclick="addShopCat(this.form)"
+                                                   class="hvr-shutter-in-vertical hvr-shutter-in-vertical2 " value="加入购物车">
+                                        </form>
                                         <p class="dollar"><span
                                                 class="in-dollar">$</span><span>${commodity.price}</span></p>
                                         <div class="clearfix"></div>
@@ -186,17 +192,17 @@
                         href="${pageContext.request.contextPath}/homePage?page=${commoditys.nextPage}">${commoditys.pageNum +1}</a>
                 </li>
             </c:if>
-            <c:if test="${commoditys.pageNum +2 < commoditys.pages}">
+            <c:if test="${commoditys.pageNum +2 <= commoditys.pages}">
                 <li class="arrow"><a
                         href="${pageContext.request.contextPath}/homePage?page=${commoditys.pageNum +2}">${commoditys.pageNum +2}</a>
                 </li>
             </c:if>
-            <c:if test="${commoditys.pageNum +3 < commoditys.pages}">
+            <c:if test="${commoditys.pageNum +3 <= commoditys.pages}">
                 <li class="arrow"><a
                         href="${pageContext.request.contextPath}/homePage?page=${commoditys.pageNum +3}">${commoditys.pageNum +3}</a>
                 </li>
             </c:if>
-            <c:if test="${commoditys.pageNum +4 < commoditys.pages}">
+            <c:if test="${commoditys.pageNum +4 <= commoditys.pages}">
                 <li class="arrow"><a
                         href="${pageContext.request.contextPath}/homePage?page=${commoditys.pageNum +4}">${commoditys.pageNum +1}</a>
                 </li>

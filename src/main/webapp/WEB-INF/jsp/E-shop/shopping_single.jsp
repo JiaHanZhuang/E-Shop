@@ -55,7 +55,11 @@
                     <h4>${commoditySingle.detail}</h4>
                     <div class="para-grid">
                         <span class="add-to">${commoditySingle.price}</span>
-                        <a href="#" class="hvr-shutter-in-vertical cart-to">添加到购物车</a>
+                        <form action="#" method="post" id="tempForm">
+                            <input type="hidden" id="itemId" value="${commodity.id}" name="itemId">
+                            <input type="button" onclick="addShopCat(this.form)"
+                                   class="hvr-shutter-in-vertical hvr-shutter-in-vertical2 " value="加入购物车">
+                        </form>
                         <div class="clearfix"></div>
                     </div>
                     <h5>库存:${commoditySingle.inventory}</h5>

@@ -70,6 +70,7 @@
         });
     });
     </script>
+
     <jsp:include page="login_js.jsp"></jsp:include>
     <jsp:include page="login_common.jsp"></jsp:include>
 </head>

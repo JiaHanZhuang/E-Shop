@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--header-->
 <div class="header">
     <div class="header-top">
@@ -19,8 +19,8 @@
                 <div class="header-in">
                     <ul class="icon1 sub-icon1">
                         <li><a href="#" onclick="checkUserIsLogin()">我的账户</a></li>
-                        <li><a href="#">购物车</a></li>
-                        <li><a href="#">账单</a></li>
+                        <li><a href="${pageContext.request.contextPath}/buy/selectShopCat">购物车</a></li>
+                        <li><a href="${pageContext.request.contextPath}/buy/selectBill">账单</a></li>
                         <c:if test="${user!=null}">
                             <li><a href="${pageContext.request.contextPath}/logout">注销</a></li>
                         </c:if>

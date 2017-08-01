@@ -177,4 +177,9 @@ public class LoginRegisterController {
         return  null;
     }
 
+    @RequestMapping("/loginSkip")
+    public String loginPage() {
+        return "/E-shop/login";
+    }
+
 }
