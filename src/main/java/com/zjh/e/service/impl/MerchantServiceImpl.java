@@ -8,6 +8,7 @@ import com.zjh.e.service.MerchantService;
 import com.zjh.e.utils.FtpUtil;
 import com.zjh.e.utils.JedisPoolUtil;
 import com.zjh.e.utils.MessageUtils;
+import com.zjh.e.utils.StringUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,8 +50,8 @@ public class MerchantServiceImpl implements MerchantService {
     private String FTP_USERNAME;
 
 
-    private static final String PATH = "D:\\IdeaProject\\E-shop\\target\\E-shop\\images\\";
-    private static final String LINUXPATH = "D:/IdeaProject/E-shop/target/E-shop/images/";
+//    private static final String PATH = "D:\\IdeaProject\\E-shop\\target\\E-shop\\images\\";
+//    private static final String LINUXPATH = "D:/IdeaProject/E-shop/target/E-shop/images/";
 
     @Override
     public PageInfo<Activity> selectAllActivity(Integer page, Integer rows) {
@@ -75,11 +76,14 @@ public class MerchantServiceImpl implements MerchantService {
 
 
     @Override
-    public MessageUtils saveCommodity(Commodity commodity, HttpSession session, Long userId) {
+    public MessageUtils saveCommodity(Commodity commodity, HttpSession session, Long userId,HttpServletRequest request) {
         //1,把图片上传到ftp
         UserBasic userBasic = (UserBasic) session.getAttribute("user");
+        //获取上传图片的路径
+        String realPath = request.getSession().getServletContext().getRealPath("/images");
+        System.out.println(realPath + "\\" + userBasic.getEmail());
         //获取文件
-        File file = new File(PATH + userBasic.getEmail());
+        File file = new File(realPath + "\\" + userBasic.getEmail());
         //判断文件是否存在
         if (file.exists()) {
             //获取文件中所有的文件名
@@ -87,52 +91,60 @@ public class MerchantServiceImpl implements MerchantService {
             //连接服务器
             FtpUtil ftpUtil = new FtpUtil(FTP_ADDRESS, FTP_PORT, FTP_USERNAME, FTP_PASSWORD);
             //判断是否连接成功
-            if (ftpUtil.open()) {
-                //本地储存路径
-                String path = LINUXPATH + userBasic.getEmail() + "/";
-                //依次重定义文件名并上传
-                //用于记录文件名
-                String[] fileNames = new String[files.length];
-                for (int i = 0; i < files.length; i++) {
-                    String fileName = UUID.randomUUID() + files[i].getName().substring(files[i].getName().indexOf("."));
-                    fileNames[i] = fileName;
-                    ftpUtil.upload(path + files[i].getName(), fileName, null);
-                }
-                //2,把ftp的路径存入commodity类
-                //将ftp指定目录下的所有图片名字读取，并组成String存入数据库
-                StringBuffer sb = new StringBuffer();
-                for (int i = 0; i < files.length; i++) {
-                    sb.append(fileNames[i]).append(",");
-                }
-                commodity.setPath(sb.toString());
-                //3,把图片删除
-                for (int i = 0; i < files.length; i++) {
-                    files[i].delete();
-                }
-                file.delete();
+            try{
+                if (ftpUtil.open()) {
+                    //本地储存路径
+                    //将windows的路径转为linux
+                    String linuxPath = StringUtils.windowsPathReplaceLinusPath(realPath);
+                    String path = linuxPath + "/" + userBasic.getEmail() + "/";
+                    System.out.println(path);
+                    //依次重定义文件名并上传
+                    //用于记录文件名
+                    String[] fileNames = new String[files.length];
+                    for (int i = 0; i < files.length; i++) {
+                        String fileName = UUID.randomUUID() + files[i].getName().substring(files[i].getName().indexOf("."));
+                        fileNames[i] = fileName;
+                        System.out.println(path + files[i].getName());
+                        ftpUtil.upload(path + files[i].getName(), fileName, null);
+                    }
+                    //2,把ftp的路径存入commodity类
+                    //将ftp指定目录下的所有图片名字读取，并组成String存入数据库
+                    StringBuffer sb = new StringBuffer();
+                    for (int i = 0; i < files.length; i++) {
+                        sb.append(fileNames[i]).append(",");
+                    }
+                    commodity.setPath(sb.toString());
+                    //3,把图片删除
+                    for (int i = 0; i < files.length; i++) {
+                        files[i].delete();
+                    }
+                    file.delete();
 
-                //4,将commodity所有的信息存入数据库
-                //4.1讲库存存入redis
-                //生成唯一的商品标识符，并作为redis的库存的key
-                Jedis jedis = JedisPoolUtil.getJedisPoolInstance().getResource();
-                String commodityUUID = UUID.randomUUID().toString();
-                jedis.set(commodityUUID,commodity.getInventory().toString());
-                //存入commodity实体类中
-                commodity.setCommodityId(commodityUUID);
-                //清空commodity实体类中的库存
-                commodity.setInventory(null);
-                commodityMapper.insertSelective(commodity);
-                //5,建立商家用户和商品的关系
-                //5.1,查询id
-                Long commodityId = commodityMapper.selectOne(commodity).getId();
-                //5.2,建立对象
-                ShopCommodity shopCommodity = new ShopCommodity(userId, commodityId);
-                //5.3,存储
-                shopCommodityMapper.saveCommodityAndShop(shopCommodity);
-                //6,返回地址
-                return new MessageUtils("/merchant/addCommodityAction", "添加成功");
+                    //4,将commodity所有的信息存入数据库
+                    //4.1讲库存存入redis
+                    //生成唯一的商品标识符，并作为redis的库存的key
+                    Jedis jedis = JedisPoolUtil.getJedisPoolInstance().getResource();
+                    String commodityUUID = UUID.randomUUID().toString();
+                    jedis.set(commodityUUID,commodity.getInventory().toString());
+                    //存入commodity实体类中
+                    commodity.setCommodityId(commodityUUID);
+                    //清空commodity实体类中的库存
+                    commodity.setInventory(null);
+                    commodityMapper.insertSelective(commodity);
+                    //5,建立商家用户和商品的关系
+                    //5.1,查询id
+                    Long commodityId = commodityMapper.selectOne(commodity).getId();
+                    //5.2,建立对象
+                    ShopCommodity shopCommodity = new ShopCommodity(userId, commodityId);
+                    //5.3,存储
+                    shopCommodityMapper.saveCommodityAndShop(shopCommodity);
+                    //6,返回地址
+                    return new MessageUtils("/merchant/addCommodityAction", "添加成功");
+                }
+                return new MessageUtils(null, "图片服务器连接不上");
+            }catch (Exception e) {
+                return new MessageUtils(null,"连接异常");
             }
-            return new MessageUtils(null, "连接服服务器失败，图片无法上传");
         }
         return new MessageUtils(null, "还未上传图片");
     }
@@ -145,10 +157,11 @@ public class MerchantServiceImpl implements MerchantService {
         try {
             //得到这个文件的uuidname
             uuidName = file.getOriginalFilename();
-            //真实路径
-            String roolPath = request.getSession().getServletContext().getRealPath("/");
+            //上传路径（tomcat）
+            String realPath = request.getSession().getServletContext().getRealPath("/images");
+            System.out.println(realPath);
             //储存路径
-            String path = PATH + userBasic.getEmail();
+            String path = realPath +"\\" + userBasic.getEmail();
             File file1 = new File(path);
             if (!file1.exists()) {
                 file1.mkdirs();
@@ -163,7 +176,7 @@ public class MerchantServiceImpl implements MerchantService {
             out.close();
 
             map.put("state", "SUCCESS");// UEDITOR的规则:不为SUCCESS则显示state的内容
-            map.put("url", userBasic.getEmail() + "\\" + uuidName);         //能访问到你现在图片的路径
+            map.put("url", userBasic.getEmail() + "/" + uuidName);         //能访问到你现在图片的路径
             map.put("title", "");
             map.put("original", "realName");
         } catch (IOException e) {

@@ -40,7 +40,6 @@
             <div class="footer-middle-in">
                 <h6>客户服务</h6>
                 <ul>
-                    <li><a href="#">联系我们</a></li>
                     <li><a href="${pageContext.request.contextPath}/map">地图</a></li>
                 </ul>
             </div>

@@ -98,7 +98,6 @@
                     <li><a href="${pageContext.request.contextPath}/shopping?type=laptop">笔记本电脑</a></li>
                     <li><a href="${pageContext.request.contextPath}/shopping?type=phone">手机硬件</a></li>
                     <li><a href="${pageContext.request.contextPath}/shopping?type=electronic">数码电子</a></li>
-                    <li><a href="#">联系我们</a></li>
 
                 </ul>
                 <script type="text/javascript"

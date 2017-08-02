@@ -22,7 +22,7 @@ public interface MerchantService {
 
     MessageUtils saveShopActivity(long activityId,long userId);
 
-    MessageUtils saveCommodity(Commodity commodity,HttpSession sessionm,Long userId);
+    MessageUtils saveCommodity(Commodity commodity,HttpSession sessionm,Long userId,HttpServletRequest request);
 
     Map<String,Object> uploadFile(MultipartFile file, HttpServletRequest request, HttpSession session);
 

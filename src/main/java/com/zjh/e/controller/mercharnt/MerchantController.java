@@ -77,8 +77,9 @@ public class MerchantController {
 
     @RequestMapping("/addCommodity")
     @ResponseBody
-    public MessageUtils addCommodity(Commodity commodity,HttpSession session,Long userId) {
-        return merchantService.saveCommodity(commodity,session,userId);
+    public MessageUtils addCommodity(Commodity commodity,HttpSession session,
+                                     Long userId,HttpServletRequest request) {
+        return merchantService.saveCommodity(commodity,session,userId,request);
     }
 
     @RequestMapping("/selectMerchantStock")

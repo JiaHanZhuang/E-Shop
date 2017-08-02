@@ -142,7 +142,7 @@ public class LoginRegisterController {
         } else {
             //进行密码的判断
             if(user.getPassword().equals(MD5password)){
-                //存在此邮箱账号，且密码不错误，返回前台给url
+                //存在此邮箱账号，且密码不错误，返回前台信息
                 messageUtils.setUrl("/homePage");
                 //将用户存进session
                 session.setAttribute("user",user);
