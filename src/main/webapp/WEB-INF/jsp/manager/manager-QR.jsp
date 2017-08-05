@@ -116,13 +116,6 @@
                 </div>
             </div>
         </div>
-        <%--<hr />--%>
-        <%--<div class="row">--%>
-            <%--<div class="col-md-6 col-sm-3 col-xs-6">--%>
-                <%----%>
-            <%--</div>--%>
-        <%--</div>--%>
-        <%--<hr/>--%>
     </div>
 </div>
 

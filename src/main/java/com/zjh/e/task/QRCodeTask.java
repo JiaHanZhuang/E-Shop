@@ -25,6 +25,7 @@ public class QRCodeTask {
                 deleteFile.delete();
             }
             file.delete();
+            System.out.println("删除成功");
         }
     }
 
