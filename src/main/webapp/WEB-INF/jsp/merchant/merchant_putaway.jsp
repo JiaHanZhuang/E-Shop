@@ -23,17 +23,17 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
 
     <script type="text/javascript">
+
         function addInventory(dataForm) {
             var url = "${pageContext.request.contextPath}/merchant/updataCommodity";
-            var putaway = $("input:radio:checked").val();
+            var putaway = $('input:radio[name="putaway"]:checked').val();
             $.post(url, {
                 id: dataForm.id.value,
                 putaway: putaway,
-                commodityId:dataForm.uuid.value
+                commodityId: dataForm.uuid.value
             }, function (data) {
-                alert(data.message);
+                $("#temp").text("当前状态为："+data.message);
             }, "JSON");
-
         }
     </script>
 
@@ -70,10 +70,6 @@
 
                 </li>
 
-
-                <li>
-                    <a href="#"><i class="fa fa-desktop "></i>店铺首页</a>
-                </li>
                 <li>
                     <a href="#"><i class="fa fa-table "></i>商品管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
@@ -126,12 +122,12 @@
                                         <td>${commodity.id}</td>
                                         <td>${commodity.detail}</td>
                                         <td>
-                                            <input type="radio" name="putaway" value="true"
-                                            <c:if test="${commodity.putaway}"> checked="checked" </c:if>
-                                            > 上架
-                                            <input type="radio" name="putaway" value="false"
-                                            <c:if test="${! commodity.putaway}"> checked="checked" </c:if>
-                                            >下架
+                                            <ul>
+                                                <li id="temp">当前状态为：${commodity.putaway ?'上架':'下架'}</li>
+                                            </ul>
+                                            <br/>
+                                            <input type="radio" name="putaway" value="true"> 上架
+                                            <input type="radio" name="putaway" value="false">下架
                                         </td>
                                         <td>${commodity.type}</td>
                                         <td>${commodity.inventory}</td>

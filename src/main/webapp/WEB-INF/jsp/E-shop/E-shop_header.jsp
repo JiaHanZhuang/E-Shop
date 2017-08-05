@@ -24,53 +24,6 @@
                         <c:if test="${user!=null}">
                             <li><a href="${pageContext.request.contextPath}/logout">注销</a></li>
                         </c:if>
-                        <li>
-                            <div class="cart">
-                                <a href="#" class="cart-in"> </a>
-                                <span> 0</span>
-                            </div>
-                            <ul class="sub-icon1 list">
-                                <h3>添加购物车中的商品</h3>
-                                <div class="shopping_cart">
-                                    <div class="cart_box">
-                                        <div class="message">
-                                            <div class="alert-close"></div>
-                                            <div class="list_img"><img
-                                                    src="${pageContext.request.contextPath}/resources/E-shop/images/14.jpg"
-                                                    class="img-responsive"
-                                                    alt=""></div>
-                                            <div class="list_desc"><h4><a href="#">velit esse molestie</a></h4>1 x<span
-                                                    class="actual">
-		                             $12.00</span></div>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </div>
-                                    <div class="cart_box1">
-                                        <div class="message1">
-                                            <div class="alert-close1"></div>
-                                            <div class="list_img"><img
-                                                    src="${pageContext.request.contextPath}/resources/E-shop/images/15.jpg"
-                                                    class="img-responsive"
-                                                    alt=""></div>
-                                            <div class="list_desc"><h4><a href="#">velit esse molestie</a></h4>1 x<span
-                                                    class="actual">
-		                             $12.00</span></div>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="total">
-                                    <div class="total_left">总价 :</div>
-                                    <div class="total_right">$250.00</div>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="login_buttons">
-                                    <div class="check_button"><a href="#">结算</a></div>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </ul>
-                        </li>
                     </ul>
                 </div>
                 <div class="clearfix"></div>
@@ -110,16 +63,10 @@
             <div class="header-bottom-on">
                 <p class="wel">查询您想要的商品</p>
                 <div class="header-can">
-                    <div class="down-top">
-                        <select class="in-drop">
-                            <option value="Dollars" class="in-of">名称</option>
-                            <option value="Euro" class="in-of">类型</option>
-                        </select>
-                    </div>
                     <div class="search">
-                        <form>
+                        <form method="post" action="${pageContext.request.contextPath}/selectByKeyWorld">
                             <input type="text" value="内容" onFocus="this.value = '';"
-                                   onBlur="if (this.value == '') {this.value = '';}">
+                                   onBlur="if (this.value == '') {this.value = '';}" name="keyWorld">
                             <input type="submit" value="">
                         </form>
                     </div>

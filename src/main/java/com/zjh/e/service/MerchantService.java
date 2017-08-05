@@ -3,7 +3,6 @@ package com.zjh.e.service;
 import com.github.pagehelper.PageInfo;
 import com.zjh.e.pojo.Activity;
 import com.zjh.e.pojo.Commodity;
-import com.zjh.e.pojo.CommodityType;
 import com.zjh.e.utils.MessageUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,5 +36,7 @@ public interface MerchantService {
     PageInfo<Commodity> selectCommodityByCommodity(Long commodityId,Integer page,Integer rows);
 
     Commodity selectById(Long id);
+
+    List<Commodity> selectCommodityByLucene(String keyWorld,Integer page,Integer rows);
 
 }

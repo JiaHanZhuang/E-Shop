@@ -129,5 +129,9 @@
     <orderEntry type="library" name="Maven: org.apache.commons:commons-pool2:2.4.2" level="project" />
     <orderEntry type="library" name="Maven: commons-net:commons-net:3.3" level="project" />
     <orderEntry type="library" name="Maven: com.jcraft.jsch:com.springsource.com.jcraft.jsch:0.1.31" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.lucene:lucene-core:3.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.lucene:lucene-highlighter:3.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.lucene:lucene-memory:3.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.lucene:ikAnalyzer:3.2.8" level="project" />
   </component>
 </module>

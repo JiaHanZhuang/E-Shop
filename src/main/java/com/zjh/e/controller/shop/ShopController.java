@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2017/7/28.
  */
@@ -48,6 +50,16 @@ public class ShopController {
         modelAndView.addObject("commodityType",pageInfo);
         modelAndView.addObject("commodities",commodities);
         modelAndView.setViewName("/E-shop/shopping_single");
+        return modelAndView;
+    }
+
+    @RequestMapping("/selectByKeyWorld")
+    public ModelAndView selectCommodityByLucene(ModelAndView modelAndView,String keyWorld,
+                                                @RequestParam(defaultValue = "1" ,required = false)Integer page,
+                                                @RequestParam(defaultValue = "6",required = false)Integer rows) {
+        List<Commodity> commodities = merchantService.selectCommodityByLucene(keyWorld,page,rows);
+        modelAndView.addObject("commodities",commodities);
+        modelAndView.setViewName("/E-shop/lucene");
         return modelAndView;
     }
 

@@ -87,6 +87,10 @@
           <element id="library" level="project" name="Maven: org.apache.commons:commons-pool2:2.4.2" />
           <element id="library" level="project" name="Maven: commons-net:commons-net:3.3" />
           <element id="library" level="project" name="Maven: com.jcraft.jsch:com.springsource.com.jcraft.jsch:0.1.31" />
+          <element id="library" level="project" name="Maven: org.apache.lucene:lucene-core:3.0.0" />
+          <element id="library" level="project" name="Maven: org.apache.lucene:lucene-highlighter:3.0.0" />
+          <element id="library" level="project" name="Maven: org.apache.lucene:lucene-memory:3.0.0" />
+          <element id="library" level="project" name="Maven: com.lucene:ikAnalyzer:3.2.8" />
         </element>
       </element>
       <element id="directory" name="META-INF">

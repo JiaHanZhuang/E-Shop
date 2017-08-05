@@ -397,17 +397,38 @@
       <artifactId>commons-net</artifactId>
       <version>3.3</version>
     </dependency>
-    <!--<dependency>-->
-      <!--<groupId>com.jcraft.jsch</groupId>-->
-      <!--<artifactId>com.jcraft.jsch</artifactId>-->
-      <!--<version>0.1.31</version>-->
-    <!--</dependency>-->
     <dependency>
       <groupId>com.jcraft.jsch</groupId>
       <artifactId>com.springsource.com.jcraft.jsch</artifactId>
       <version>0.1.31</version>
     </dependency>
     <!--end-->
+    <!-- lucene -->
+    <dependency>
+      <groupId>org.apache.lucene</groupId>
+      <artifactId>lucene-core</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.lucene</groupId>
+      <artifactId>lucene-highlighter</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.lucene</groupId>
+      <artifactId>lucene-memory</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+    <!-- end -->
+    <!--分词器-->
+    <dependency>
+      <groupId>com.lucene</groupId>
+      <artifactId>ikAnalyzer</artifactId>
+      <version>3.2.8</version>
+    </dependency>
+    <!--end-->
+
+
 
   </dependencies>
   <build>

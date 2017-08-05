@@ -71,10 +71,6 @@
 
                 </li>
 
-
-                <li>
-                    <a href="#"><i class="fa fa-desktop "></i>店铺首页</a>
-                </li>
                 <li>
                     <a href="#"><i class="fa fa-table "></i>商品管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">

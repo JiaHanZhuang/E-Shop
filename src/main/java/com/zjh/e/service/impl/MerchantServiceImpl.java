@@ -2,6 +2,7 @@ package com.zjh.e.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zjh.e.luceneDao.LuceneDao;
 import com.zjh.e.mapper.*;
 import com.zjh.e.pojo.*;
 import com.zjh.e.service.MerchantService;
@@ -81,7 +82,6 @@ public class MerchantServiceImpl implements MerchantService {
         UserBasic userBasic = (UserBasic) session.getAttribute("user");
         //获取上传图片的路径
         String realPath = request.getSession().getServletContext().getRealPath("/images");
-        System.out.println(realPath + "\\" + userBasic.getEmail());
         //获取文件
         File file = new File(realPath + "\\" + userBasic.getEmail());
         //判断文件是否存在
@@ -97,14 +97,12 @@ public class MerchantServiceImpl implements MerchantService {
                     //将windows的路径转为linux
                     String linuxPath = StringUtils.windowsPathReplaceLinusPath(realPath);
                     String path = linuxPath + "/" + userBasic.getEmail() + "/";
-                    System.out.println(path);
                     //依次重定义文件名并上传
                     //用于记录文件名
                     String[] fileNames = new String[files.length];
                     for (int i = 0; i < files.length; i++) {
                         String fileName = UUID.randomUUID() + files[i].getName().substring(files[i].getName().indexOf("."));
                         fileNames[i] = fileName;
-                        System.out.println(path + files[i].getName());
                         ftpUtil.upload(path + files[i].getName(), fileName, null);
                     }
                     //2,把ftp的路径存入commodity类
@@ -138,11 +136,18 @@ public class MerchantServiceImpl implements MerchantService {
                     ShopCommodity shopCommodity = new ShopCommodity(userId, commodityId);
                     //5.3,存储
                     shopCommodityMapper.saveCommodityAndShop(shopCommodity);
+                    //建commodity的商品描述，id存进lucene
+                    //实例化luceneDao
+                    LuceneDao luceneDao = new LuceneDao();
+                    //设置商品id
+                    commodity.setId(commodityId);
+                    luceneDao.saveCommodity(commodity);
                     //6,返回地址
                     return new MessageUtils("/merchant/addCommodityAction", "添加成功");
                 }
                 return new MessageUtils(null, "图片服务器连接不上");
             }catch (Exception e) {
+//                e.printStackTrace();
                 return new MessageUtils(null,"连接异常");
             }
         }
@@ -212,7 +217,11 @@ public class MerchantServiceImpl implements MerchantService {
             commodity.setInventory(null);
         }
         commodityMapper.updateByPrimaryKeySelective(commodity);
-        return new MessageUtils(null, "修改成功");
+        if(commodity.getPutaway()!=null) {
+            return new MessageUtils(null, commodity.getPutaway()?"上架":"下架");
+        } else {
+            return new MessageUtils(null,"修改成功");
+        }
     }
 
     @Override
@@ -259,6 +268,12 @@ public class MerchantServiceImpl implements MerchantService {
         Integer inventory = Integer.parseInt(jedis.get(commodity.getCommodityId()));
         commodity.setInventory(inventory);
         return commodity;
+    }
+
+    @Override
+    public List<Commodity> selectCommodityByLucene(String keyWorld,Integer page,Integer rows) {
+        LuceneDao luceneDao = new LuceneDao();
+        return luceneDao.selectCommodity(keyWorld,page,rows);
     }
 
 

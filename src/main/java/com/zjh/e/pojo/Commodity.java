@@ -3,6 +3,7 @@ package com.zjh.e.pojo;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Transient;
+import java.util.Arrays;
 
 /**
  * Created by Administrator on 2017/7/7.
@@ -106,5 +107,21 @@ public class Commodity {
 
     public void setPutaway(Boolean putaway) {
         this.putaway = putaway;
+    }
+
+    @Override
+    public String toString() {
+        return "Commodity{" +
+                "id=" + id +
+                ", color='" + color + '\'' +
+                ", type='" + type + '\'' +
+                ", detail='" + detail + '\'' +
+                ", path='" + path + '\'' +
+                ", price=" + price +
+                ", inventory=" + inventory +
+                ", putaway=" + putaway +
+                ", commodityId='" + commodityId + '\'' +
+                ", paths=" + Arrays.toString(paths) +
+                '}';
     }
 }
