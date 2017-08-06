@@ -46,7 +46,7 @@
                 <div class="col-md-3 md-col">
                     <div class="col-md">
                         <a href="${pageContext.request.contextPath}/single?id=${commodity.id}" class="compare-in"><img
-                                src="http://39.108.4.2/${commodity.paths[0]}" alt=""
+                                src="http://39.108.4.2/ftpuser/${commodity.paths[0]}" alt=""
                                 height="177" width="204"/>
                             <div class="compare">
                                 <span>查看详情</span>
