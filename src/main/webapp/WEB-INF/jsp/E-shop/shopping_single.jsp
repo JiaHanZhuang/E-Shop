@@ -39,8 +39,8 @@
                     <!-- //FlexSlider-->
                     <ul class="slides">
                         <c:forEach items="${commoditySingle.paths}" var="path">
-                            <li data-thumb="http://39.108.4.2/${path}">
-                                <div class="thumb-image"><img src="http://39.108.4.2/${path}" height="1100" width="762"
+                            <li data-thumb="http://39.108.4.2/ftpuser/${path}">
+                                <div class="thumb-image"><img src="http://39.108.4.2/ftpuser/${path}" height="1100" width="762"
                                                               data-imagezoom="true" class="img-responsive"></div>
                             </li>
                         </c:forEach>
