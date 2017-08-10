@@ -25,32 +25,40 @@
         function checkRegister() {
             var url = "${pageContext.request.contextPath}/checkRegisterInformation";
             var params = $("#information").serialize();
-            $.ajax({
-                type:"POST",
-                url:url,
-                data:params,
-                dataType: "json",
-                success:function (data) {
-                    if(data.url==null){
-                        alert(data.message);
-                    } else {
-                        var url = "${pageContext.request.contextPath}"+data.url;
-                        $.ajax({
-                            type:"POST",
-                            url:url,
-                            data:params,
-                            dataType: "json",
-                            success:function (result) {
-                                if(result.url==null){
-                                    alert(result.message);
-                                } else {
-                                    window.location.href = "${pageContext.request.contextPath}"+result.url;
+            var name = $("#name").val();
+            var password = $("#password").val();
+            if(name == null || name == "") {
+                alert("姓名未填写");
+            } else if(password == null || password == ""){
+                alert("密码未填写");
+            } else {
+                $.ajax({
+                    type:"POST",
+                    url:url,
+                    data:params,
+                    dataType: "json",
+                    success:function (data) {
+                        if(data.url==null){
+                            alert(data.message);
+                        } else {
+                            var url = "${pageContext.request.contextPath}"+data.url;
+                            $.ajax({
+                                type:"POST",
+                                url:url,
+                                data:params,
+                                dataType: "json",
+                                success:function (result) {
+                                    if(result.url==null){
+                                        alert(result.message);
+                                    } else {
+                                        window.location.href = "${pageContext.request.contextPath}"+result.url;
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }
                     }
-                }
-            });
+                });
+            }
         }
     </script>
 </head>
@@ -118,11 +126,11 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>您的名字 <small>(必填)</small></label>
-                                                <input name="name" type="text" class="form-control" placeholder="姓名.">
+                                                <input name="name" type="text" class="form-control" placeholder="姓名" id="name">
                                             </div>
                                             <div class="form-group">
                                                 <label>密码<small>(必填)</small></label>
-                                                <input name="password" type="password" class="form-control">
+                                                <input name="password" type="password" class="form-control" id="password">
                                             </div>
                                         </div>
                                         <div class="col-sm-10 col-sm-offset-1">

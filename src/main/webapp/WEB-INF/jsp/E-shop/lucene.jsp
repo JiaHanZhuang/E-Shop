@@ -17,7 +17,7 @@
 <div class="container">
     <div class="check-out">
         <h2>搜索结果</h2>
-        <c:if test="${commodities !=null}">
+        <c:if test="${commodities.size() > 0}">
             <table border="10" cellpadding="10" cellspacing="1">
                 <thead>
                 <tr>
@@ -35,7 +35,7 @@
                 </tbody>
             </table>
         </c:if>
-        <c:if test="${commodities == null}">
+        <c:if test="${commodities.size() == 0}">
             <h3>查无此结果点击<a href="${pageContext.request.contextPath}/homePage">此处</a>返回首页</h3>
         </c:if>
     </div>

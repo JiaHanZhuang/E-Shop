@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.UUID;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
@@ -334,45 +333,45 @@ public class FtpUtil {
         this.ftpClient = ftpClient;
     }
 
-    public static void main(String[] args) {
-        FtpUtil f = new FtpUtil("39.108.4.2", 21, "ftpuser", "zjh.1997.11.28");
-        try {
-            if(f.open()) {
-                String fileName = "测试2.txt";
-                //上传
-                f.upload("d:/1.txt", fileName, null);
-
-//                //遍历
-//                FTPFile[] list = f.getFileList("test1");
-//                for(FTPFile file : list) {
-//                    String name = file.getName();
-//                    System.out.println("--" + new String(name.getBytes("iso-8859-1"), "GB2312"));
-//                }
+//    public static void main(String[] args) {
+//        FtpUtil f = new FtpUtil("39.108.4.2", 21, "ftpuser", "zjh.1997.11.28");
+//        try {
+//            if(f.open()) {
+//                String fileName = "测试2.txt";
+//                //上传
+//                f.upload("d:/1.txt", fileName, null);
 //
-//                //只遍历指定目录下的文件名
-//                String[] names = f.getFileNameList("test1");
-//                for(String name : names) {
-//                    System.out.println(new String(name.getBytes("iso-8859-1"), "GB2312"));
-//                }
-
-//                //下载
-//                boolean b = f.get("/test1/测试2.txt", "d:/text.txt");
-//                System.out.println(b);
+////                //遍历
+////                FTPFile[] list = f.getFileList("test1");
+////                for(FTPFile file : list) {
+////                    String name = file.getName();
+////                    System.out.println("--" + new String(name.getBytes("iso-8859-1"), "GB2312"));
+////                }
+////
+////                //只遍历指定目录下的文件名
+////                String[] names = f.getFileNameList("test1");
+////                for(String name : names) {
+////                    System.out.println(new String(name.getBytes("iso-8859-1"), "GB2312"));
+////                }
 //
-//                //删除
-//                String ftpDirAndFileName = "test1/测试.txt";
-//                boolean be = f.deleteFile(new String(ftpDirAndFileName.getBytes(), "iso-8859-1"));
-//                System.out.println(be);
-
-//                //删除目录
-//                boolean delf = f.deleteDirectory("test1");
-//                System.out.println(delf);
-
-                f.close();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+////                //下载
+////                boolean b = f.get("/test1/测试2.txt", "d:/text.txt");
+////                System.out.println(b);
+////
+////                //删除
+////                String ftpDirAndFileName = "test1/测试.txt";
+////                boolean be = f.deleteFile(new String(ftpDirAndFileName.getBytes(), "iso-8859-1"));
+////                System.out.println(be);
+//
+////                //删除目录
+////                boolean delf = f.deleteDirectory("test1");
+////                System.out.println(delf);
+//
+//                f.close();
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 }

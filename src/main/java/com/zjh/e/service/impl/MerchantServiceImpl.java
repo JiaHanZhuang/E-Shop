@@ -83,7 +83,7 @@ public class MerchantServiceImpl implements MerchantService {
         //获取上传图片的路径
         String realPath = request.getSession().getServletContext().getRealPath("/images");
         //获取文件
-        File file = new File(realPath + "\\" + userBasic.getEmail());
+        File file = new File(realPath + File.separatorChar + userBasic.getEmail());
         //判断文件是否存在
         if (file.exists()) {
             //获取文件中所有的文件名
@@ -166,7 +166,7 @@ public class MerchantServiceImpl implements MerchantService {
             String realPath = request.getSession().getServletContext().getRealPath("/images");
             System.out.println(realPath);
             //储存路径
-            String path = realPath +"\\" + userBasic.getEmail();
+            String path = realPath + File.separatorChar + userBasic.getEmail();
             File file1 = new File(path);
             if (!file1.exists()) {
                 file1.mkdirs();

@@ -51,29 +51,29 @@ public class LoginRegisterController {
 
     @RequestMapping("/homePage")
     public ModelAndView homePage(ModelAndView modelAndView,
-                           @RequestParam(required = false,defaultValue = "1")Integer page,
-                           @RequestParam(required = false,defaultValue = "4")Integer rows) {
-        PageInfo<Commodity> pageInfo = merchantService.selectComodityAll(page,rows);
-        modelAndView.addObject("commoditys",pageInfo);
+                                 @RequestParam(required = false, defaultValue = "1") Integer page,
+                                 @RequestParam(required = false, defaultValue = "4") Integer rows) {
+        PageInfo<Commodity> pageInfo = merchantService.selectComodityAll(page, rows);
+        modelAndView.addObject("commoditys", pageInfo);
         modelAndView.setViewName("E-shop/homePage");
         return modelAndView;
     }
 
     @RequestMapping("/creatUser")
     @ResponseBody
-        public MessageUtils creatUserName(UserExpand userExpand,
+    public MessageUtils creatUserName(UserExpand userExpand,
                                       @Validated UserBasic userBasic, BindingResult bindingResult)
             throws Exception {
         MessageUtils messageUtils = new MessageUtils();
         //确认是否有错误信息
         MessageUtils message = allErrrorToString(bindingResult);
         //有错误信息,返回错误信息
-        if(message!=null){
+        if (message != null) {
             return message;
         }
         //在redis中加入其账户余额,默认为0
         Jedis jedis = JedisPoolUtil.getJedisPoolInstance().getResource();
-        jedis.set(userBasic.getEmail(),"0");
+        jedis.set(userBasic.getEmail(), "0");
         //默认昵称
         userBasic.setUserName("e友");
         //将密码加密
@@ -85,7 +85,7 @@ public class LoginRegisterController {
         userExpand.setId(id);
         userExpandService.saveSelect(userExpand);
         //发送账户已激活通知邮件
-        EMailUtils.sendAccountActivateEmail(userBasic.getEmail(),"恭喜你已激活了E-shop账号");
+        EMailUtils.sendAccountActivateEmail(userBasic.getEmail(), "恭喜你已激活了E-shop账号");
         messageUtils.setUrl("/homePage");
         return messageUtils;
     }
@@ -95,33 +95,46 @@ public class LoginRegisterController {
     public MessageUtils checkRegisterInformation(UserBasic userBasic,
                                                  @Validated UserExpand userExpand, BindingResult bindingResult) {
         MessageUtils messageUtils = new MessageUtils();
-        //判断用户是否已经输入手机号码
-        if (userExpand.getPhone() != null || !("".equals(userExpand.getPhone()))) {
-            //确认是否有错误信息
-            MessageUtils message = allErrrorToString(bindingResult);
-            //有错误信息,返回错误信息
-            if(message!=null){
-                return message;
-            }
-            //将手机号码作为一个条件
-            UserExpand userExpand1 = new UserExpand();
-            userExpand1.setPhone(userExpand.getPhone());
-            //查询是否此号码已被注册
-            if (userExpandService.queryOne(userExpand1) != null) {
-                messageUtils.setMessage("此手机号码已被注册");
-                return messageUtils;
-            }
-        }
-        //将邮箱作为一个条件
-        UserBasic userBasic1 = new UserBasic();
-        userBasic1.setEmail(userBasic.getEmail());
-        //判断邮箱是否已被注册
-        if (userBasicService.queryOne(userBasic1) != null) {
-            messageUtils.setMessage("此邮箱已被注册");
+        //判断用户的姓名和密码
+        if (userExpand.getName() == null || "".equals(userExpand.getName())) {
+            messageUtils.setMessage("姓名为空");
+            return messageUtils;
+        } else if (userBasic.getPassword() == null || "".equals(userBasic.getPassword())) {
+            messageUtils.setMessage("密码为空");
+            return messageUtils;
         } else {
-            messageUtils.setUrl("/creatUser");
+            //判断用户是否已经输入手机号码
+            if (userExpand.getPhone() != null && !("".equals(userExpand.getPhone()))) {
+                //确认是否有错误信息
+                MessageUtils message = allErrrorToString(bindingResult);
+                //有错误信息,返回错误信息
+                if (message != null) {
+                    return message;
+                }
+                //将手机号码作为一个条件
+                UserExpand userExpand1 = new UserExpand();
+                userExpand1.setPhone(userExpand.getPhone());
+                //查询是否此号码已被注册
+                if (userExpandService.queryOne(userExpand1) != null) {
+                    messageUtils.setMessage("此手机号码已被注册");
+                    return messageUtils;
+                }
+            }
+            if(userBasic.getEmail() != null && !("".equals(userBasic.getEmail()))){
+                //将邮箱作为一个条件
+                UserBasic userBasic1 = new UserBasic();
+                userBasic1.setEmail(userBasic.getEmail());
+                //判断邮箱是否已被注册
+                if (userBasicService.queryOne(userBasic1) != null) {
+                    messageUtils.setMessage("此邮箱已被注册");
+                } else {
+                    messageUtils.setUrl("/creatUser");
+                }
+            } else {
+                messageUtils.setMessage("邮箱不能为空");
+            }
+            return messageUtils;
         }
-        return messageUtils;
     }
 
     @RequestMapping("/login")
@@ -135,17 +148,17 @@ public class LoginRegisterController {
         //按邮箱进行用户搜索
         UserBasic user = userBasicService.queryOne(userBasic);
         //判断是否有此用户
-        if(user==null){
+        if (user == null) {
             //此邮箱账号不存在
             messageUtils.setMessage("此账号不存在");
             return messageUtils;
         } else {
             //进行密码的判断
-            if(user.getPassword().equals(MD5password)){
+            if (user.getPassword().equals(MD5password)) {
                 //存在此邮箱账号，且密码不错误，返回前台信息
                 messageUtils.setUrl("/homePage");
                 //将用户存进session
-                session.setAttribute("user",user);
+                session.setAttribute("user", user);
                 return messageUtils;
             } else {
                 //密码错误
@@ -156,30 +169,30 @@ public class LoginRegisterController {
     }
 
     @RequestMapping("/logout")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session) {
         session.removeAttribute("user");
         return "redirect:/homePage";
     }
 
-    private MessageUtils allErrrorToString(BindingResult bindingResult){
+    @RequestMapping("/loginSkip")
+    public String loginPage() {
+        return "/E-shop/login";
+    }
+
+    private MessageUtils allErrrorToString(BindingResult bindingResult) {
         MessageUtils messageUtils = new MessageUtils();
         //判断是否有错误信息
         if (bindingResult.hasErrors()) {
             StringBuffer sb = new StringBuffer();
             //获取错误信息
             List<ObjectError> errors = bindingResult.getAllErrors();
-            for(ObjectError objectError:errors){
+            for (ObjectError objectError : errors) {
                 sb.append(",").append(objectError.getDefaultMessage());
             }
             messageUtils.setMessage(sb.toString());
             return messageUtils;
         }
-        return  null;
-    }
-
-    @RequestMapping("/loginSkip")
-    public String loginPage() {
-        return "/E-shop/login";
+        return null;
     }
 
 }

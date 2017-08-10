@@ -26,13 +26,14 @@
 
         function addInventory(dataForm) {
             var url = "${pageContext.request.contextPath}/merchant/updataCommodity";
-            var putaway = $('input:radio[name="putaway"]:checked').val();
+            var putaway = $('input:radio:checked').val();
             $.post(url, {
                 id: dataForm.id.value,
                 putaway: putaway,
                 commodityId: dataForm.uuid.value
             }, function (data) {
-                $("#temp").text("当前状态为："+data.message);
+                alert("成功"+data.message);
+                $("#temp").val("当前状态为："+data.message);
             }, "JSON");
         }
     </script>
@@ -122,9 +123,10 @@
                                         <td>${commodity.id}</td>
                                         <td>${commodity.detail}</td>
                                         <td>
-                                            <ul>
-                                                <li id="temp">当前状态为：${commodity.putaway ?'上架':'下架'}</li>
-                                            </ul>
+                                            <%--<ul>--%>
+                                                <%--<li id="temp">当前状态为：${commodity.putaway ?'上架':'下架'}</li>--%>
+                                            <%--</ul>--%>
+                                            <input id="temp" type="button" value="当前状态为：${commodity.putaway ?'上架':'下架'}">
                                             <br/>
                                             <input type="radio" name="putaway" value="true"> 上架
                                             <input type="radio" name="putaway" value="false">下架
@@ -140,7 +142,7 @@
                             </tbody>
                         </table>
                         <c:if test="${! commoditys.isFirstPage}">
-                            <a href="${pageContext.request.contextPath}/merchant/selectMerchantPutaway?id=${use.id}">首页</a>
+                            <a href="${pageContext.request.contextPath}/merchant/selectMerchantPutaway?page=1&id=${use.id}">首页</a>
                         </c:if>
 
                         <c:if test="${commoditys.hasPreviousPage}">

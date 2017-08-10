@@ -22,7 +22,7 @@ public class JedisPoolUtil {
                     poolConfig.setMaxIdle(32);
                     poolConfig.setMaxWaitMillis(100*1000);
                     poolConfig.setTestOnBorrow(true);
-                    jedisPool = new JedisPool(poolConfig,"39.108.4.2",6379,10000,"123456");
+                    jedisPool = new JedisPool(poolConfig,"127.0.0.1",6379,10000,"123456");
                 }
             }
         }

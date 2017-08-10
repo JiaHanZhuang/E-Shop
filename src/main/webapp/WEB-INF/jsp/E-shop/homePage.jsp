@@ -186,6 +186,26 @@
             <c:if test="${commoditys.hasPreviousPage}">
                 <li><a href="${pageContext.request.contextPath}/homePage?page=${commoditys.prePage}"><i></i></a></li>
             </c:if>
+            <c:if test="${commoditys.pageNum -4 > 0}">
+                <li class="arrow"><a
+                        href="${pageContext.request.contextPath}/homePage?page=${commoditys.pageNum -4}">${commoditys.pageNum -4}</a>
+                </li>
+            </c:if>
+            <c:if test="${commoditys.pageNum -3 > 0}">
+                <li class="arrow"><a
+                        href="${pageContext.request.contextPath}/homePage?page=${commoditys.pageNum -3}">${commoditys.pageNum -3}</a>
+                </li>
+            </c:if>
+            <c:if test="${commoditys.pageNum -2 > 0}">
+                <li class="arrow"><a
+                        href="${pageContext.request.contextPath}/homePage?page=${commoditys.pageNum -2}">${commoditys.pageNum -2}</a>
+                </li>
+            </c:if>
+            <c:if test="${commoditys.hasPreviousPage}">
+                <li class="arrow"><a
+                        href="${pageContext.request.contextPath}/homePage?page=${commoditys.prePage}">${commoditys.pageNum -1}</a>
+                </li>
+            </c:if>
             <li><span>${commoditys.pageNum}</span></li>
             <c:if test="${commoditys.hasNextPage}">
                 <li class="arrow"><a

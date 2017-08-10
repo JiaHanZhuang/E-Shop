@@ -15,7 +15,7 @@
 <jsp:include page="E-shop_header.jsp"></jsp:include>
 <div class="container">
     <div class="check-out">
-        <c:if test="${shopCat != null}">
+        <c:if test="${shopCat.list.size() > 0}">
             <table border="10" cellpadding="10" cellspacing="1">
                 <thead>
                 <tr>
@@ -91,7 +91,7 @@
             </ul>
 
         </c:if>
-        <c:if test="${shopCat == null}">
+        <c:if test="${shopCat.list.size() == 0}">
             <h4 class="title">购物车为空</h4>
             <p class="cart">去添加商品吧<br>点击<a href="${pageContext.request.contextPath}/homePage">
                 这里</a> 前往首页</p>
