@@ -1,7 +1,11 @@
 package com.zjh.e.task;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.zjh.e.utils.DateFileNameUtil;
 import com.zjh.e.utils.QRCodeUtil;
+import org.apache.struts2.ServletActionContext;
+
+import javax.servlet.http.HttpServletRequest;
 
 import java.io.File;
 
@@ -20,7 +24,7 @@ public class QRCodeTask {
         if(file.exists()) {
             File[] files = file.listFiles();
             String imgName = files[0].getName();
-            File deleteFile = new File(QRCodeUtil.PATH+path+"\\"+imgName);
+            File deleteFile = new File(QRCodeUtil.PATH+path+File.separatorChar+imgName);
             if(deleteFile.exists()){
                 deleteFile.delete();
             }

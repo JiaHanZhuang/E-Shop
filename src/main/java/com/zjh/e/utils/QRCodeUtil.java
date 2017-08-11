@@ -16,8 +16,8 @@ import java.util.HashMap;
  * 生成二维码工具类
  */
 public class QRCodeUtil {
-
-    public static final String PATH = "D:\\IdeaProject\\E-shop\\src\\main\\webapp\\WEB-INF\\img\\QRcode\\";
+//    D:\IdeaProject\E-shop\src\main\webapp\WEB-INF\img\QRcode\
+    public static final String PATH = File.separatorChar+"home"+File.separatorChar+"QR"+File.separatorChar;
 
     public static String creatQRCode(){
         int width = 300;//二维码图片的宽度
@@ -39,14 +39,13 @@ public class QRCodeUtil {
             //指定二维码内容
             BitMatrix bitMatrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, width, height,hints);
             //保存的文件夹
-            String path = PATH;     //根路径
             String img_path = DateFileNameUtil.creatFileName();                 //图片路径
-            File file = new File(path+img_path);
+            File file = new File(PATH+img_path);
             if (!file.exists()){
                 file.mkdirs();
             }
             //指定生成图片的保存路径
-            Path filepath = new File(path+img_path).toPath();
+            Path filepath = new File(PATH+img_path).toPath();
             //生成二维码
             MatrixToImageWriter.writeToPath(bitMatrix, format, filepath);
             return img_path;

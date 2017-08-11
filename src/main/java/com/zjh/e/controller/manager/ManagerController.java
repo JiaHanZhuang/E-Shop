@@ -6,6 +6,7 @@ import com.zjh.e.pojo.Financial;
 import com.zjh.e.service.ActivityService;
 import com.zjh.e.service.FinancialService;
 import com.zjh.e.utils.MessageUtils;
+import com.zjh.e.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -102,6 +104,7 @@ public class ManagerController {
     @RequestMapping("/creatQRCode")
     public ModelAndView creatQRCode(ModelAndView modelAndView, HttpSession session) {
         String path = activityService.creatQRCode(session);
+        path = StringUtils.windowsPathReplaceLinusPath(path);
         session.setAttribute("QR",path);
         modelAndView.setViewName("manager/manager-QR");
         return modelAndView;

@@ -5,6 +5,7 @@ import com.zjh.e.service.ActivityService;
 import com.zjh.e.utils.QRCodeUtil;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 

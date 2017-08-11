@@ -1,5 +1,6 @@
 package com.zjh.e.utils;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,15 +32,9 @@ public class DateFileNameUtil {
       * @return
      */
     public static  String creatFileName(){
-        return new SimpleDateFormat("yyyy-MM-dd-HH-mm").format(new Date())+"\\"+ UUID.randomUUID()+".png";
+        return new SimpleDateFormat("yyyy-MM-dd-HH-mm").format(new Date())+ File.separatorChar+ UUID.randomUUID()+".png";
     }
 
-//    /**
-//     * 放回富文本中的时间名的文件夹名
-//     */
-//    public static String fileName(){
-//        return new SimpleDateFormat("yyyyMMdd").format(new Date());
-//    }
 
 
 }

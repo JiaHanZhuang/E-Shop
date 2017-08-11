@@ -112,12 +112,12 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2>二维码</h2>
-                    <img src="/QRcode/${QR}" class="img-responsive" width="260px"/>
+                    <img src="/QR/${QR}" class="img-responsive" width="260px"/>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</div
 
 <jsp:include page="manager-index-transcript.jsp"/>
 </body>
